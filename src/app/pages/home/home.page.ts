@@ -249,20 +249,60 @@ export class HomePage implements OnInit {
     }
   }
 
+  // getRest() {
+  //   this.dummy = Array(10);
+  //   this.api.getVenues().then(data => {
+  //     console.log(data);
+  //     if (data && data.length) {
+  //       this.allRest = [];
+  //       data.forEach(async (element) => {
+  //         if (element && element.city === this.cityId) {
+  //           element.time = moment(element.time).format('HH');
+  //           this.allRest.push(element);
+  //           this.dummyRest.push(element);
+  //         }
+  //       });
+  //       this.dummy = [];
+  //     } else {
+  //       this.allRest = [];
+  //       this.dummy = [];
+  //     }
+  //   }, error => {
+  //     console.log(error);
+  //     this.dummy = [];
+  //   }).catch(error => {
+  //     console.log(error);
+  //     this.dummy = [];
+  //   });
+  // }
+
   getRest() {
     this.dummy = Array(10);
     this.api.getVenues().then(data => {
       console.log(data);
       if (data && data.length) {
         this.allRest = [];
-        data.forEach(async (element) => {
+        this.dummyRest = []; 
+        const venuePromises = data.map(async (element) => {
           if (element && element.city === this.cityId) {
-            element.time = moment(element.time).format('HH');
-            this.allRest.push(element);
-            this.dummyRest.push(element);
+            try {
+              const products = await this.api.getFoods(element.id);
+              if (products && products.length > 0) {
+                element.time = moment(element.time).format('HH');
+                this.allRest.push(element);
+                this.dummyRest.push(element);
+              }
+            } catch (error) {
+              console.error(error);
+            }
           }
         });
-        this.dummy = [];
+          Promise.all(venuePromises).then(() => {
+          this.dummy = [];
+        }).catch(error => {
+          console.log(error);
+          this.dummy = [];
+        });
       } else {
         this.allRest = [];
         this.dummy = [];
@@ -272,9 +312,12 @@ export class HomePage implements OnInit {
       this.dummy = [];
     }).catch(error => {
       console.log(error);
-      this.dummy = [];
-    });
-  }
+      this.dummy = [];
+    });
+  }
+
+
+
   openMenu(item) {
     if (item && item.status === 'close') {
       return false;

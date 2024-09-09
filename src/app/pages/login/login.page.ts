@@ -86,7 +86,8 @@ export class LoginPage implements OnInit {
       }).catch(err => {
         if (err) {
           console.log(err);
-          this.util.showToast(`${err}`, 'danger', 'bottom');
+          //this.util.showToast(`${err}`, 'danger', 'bottom');
+          this.util.showToast(this.util.translate('Incorrect email or password. Please try again.'), 'danger', 'bottom');
         }
       }).then(el => this.isLogin = false);
     }
