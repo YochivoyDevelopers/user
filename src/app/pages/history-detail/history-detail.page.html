@@ -133,7 +133,7 @@
 
     <ion-label
       class="red_lbl"
-      *ngIf="status =='creado' ||status =='en marcha' || status =='aceptado' "
+      *ngIf="status =='created' ||status =='ongoing' || status =='accepted' "
       (click)="call()"
     >
       {{'Call' | translate}} {{restName}}</ion-label
@@ -153,7 +153,7 @@
         {{'Rate Order' | translate}}
       </ion-button>
       <ion-button
-        *ngIf="status === 'creado' || status === 'en marcha' || status === 'aceptado'"
+        *ngIf="status === 'created' || status === 'ongoing' || status === 'accepted'"
         (click)="changeStatus()"
         size="small"
         class="reject"
