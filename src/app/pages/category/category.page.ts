@@ -152,7 +152,7 @@ export class CategoryPage implements OnInit {
         console.log('myfoods', this.foods);
         if (!this.foods.length || this.foods.length === 0) {
           this.util.errorToast(this.util.translate('No Foods found'));
-          this.navCtrl.back();
+          // this.navCtrl.back();
           return false;
         }
         this.changeStatus();

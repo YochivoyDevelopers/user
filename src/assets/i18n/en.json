@@ -184,5 +184,6 @@
   "accepted": "Aceptada",
   "delivered": "Entregada",
   "Card Owner Placeholder": "Nombre del titular",
-  "EmailPlaceholder": "Escribe tu dirección de correo"
+  "EmailPlaceholder": "Escribe tu dirección de correo",
+  "Incorrect email or password. Please try again.": "Correo electrónico o contraseña incorrectos. Inténtelo de nuevo."
 }

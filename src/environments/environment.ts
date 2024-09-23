@@ -5,23 +5,34 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyD0EkCSp-9CseQtwRXbVvy9bhbAMAUcEzI",
-    authDomain: "yochivoy-app.firebaseapp.com",
-    databaseURL: "https://yochivoy-app.firebaseio.com",
-    projectId: "yochivoy-app",
-    storageBucket: "yochivoy-app.appspot.com",
-    messagingSenderId: "447724713752",
-    appId: "1:447724713752:web:51fc86e2516b632736106d",
-    measurementId: "G-9K1XHQ586D"
+    //USER
+    // apiKey: "AIzaSyDiukyca-NMpzoxy5hd68inYATrm18wlPQ",
+    // authDomain: "deliveryapp-54574.firebaseapp.com",
+    // databaseURL: "https://deliveryapp-54574-default-rtdb.firebaseio.com",
+    // projectId: "deliveryapp-54574",
+    // storageBucket: "deliveryapp-54574.appspot.com",
+    // messagingSenderId: "239509151869",
+    // appId: "1:239509151869:web:ca31cfa2bcd81834ead114",
+    // measurementId: "G-4H52VG2VBB"
+
+    // Yoshivoy
+    apiKey: "AIzaSyDiukyca-NMpzoxy5hd68inYATrm18wlPQ",
+    authDomain: "deliveryapp-54574.firebaseapp.com",
+    databaseURL: "https://deliveryapp-54574-default-rtdb.firebaseio.com",
+    projectId: "deliveryapp-54574",
+    storageBucket: "deliveryapp-54574.appspot.com",
+    messagingSenderId: "239509151869",
+    appId: "1:239509151869:web:c9dd19ccf686ea20ead114",
+    measurementId: "G-RCCQB4JT47"
   },
   onesignal: {
-    appId: "63a1d142-32ef-45ef-acf7-7488bf80f157",
+    appId: "520e7fdc-7d98-4e27-8b7b-106f7765dedb",
     googleProjectNumber: "540145033481",
-    restKey: "ODliODBjOWQtZjNiMC00M2E4LTlkMmEtM2YzODA0MDc0YWNk"
+    restKey: "NzAyZWQ5NzAtYTNlYS00MjRjLTk5MTktZjU0Y2I0MTU0MjBm"
   },
   stripe: {
-    publicKey: "pk_test_51HZSxILl147XFj5bAj40kozHfQqdXjYqjTcOrWqYGl2rXaUBD0d5SkhL922hN1Nbx86zXpdGiXJLfO68mVlYjKAj00cfuq1uo7",
-    secretKey: "sk_test_51HZSxILl147XFj5b30nQ2Jx7CfQkh2LnALIgdgGMSQ2NEwR9z9KZkEw0zuk8qOa8yBUY8V7b1ePW0MrD6vyM8vHY00pr5dVHlA"
+    publicKey: "pk_test_51PxRvdIIXWFer6qKLrUTEsblKHp46OGTMocj4Qt2AcuFRaAl7FU9Nn6iElE2SI1O15UBMmMPLPEAHyiBltJS1Hdc00GbpkXpvj",
+    secretKey: "sk_test_51PxRvdIIXWFer6qK7hb7a5UDA6BKtwjVwhW1OKqbBjHxluvTF4FkzVUoIPwPNp3caKa1myrYkYzZ1DlLs91a1ozi00qYlpgAHR"
   },
   paypal: {
     sandbox: "",

@@ -3,6 +3,8 @@ import { UtilService } from 'src/app/services/util.service';
 import { ApisService } from 'src/app/services/apis.service';
 import { NavController } from '@ionic/angular';
 
+declare var Stripe: any;
+
 @Component({
   selector: 'app-add-card',
   templateUrl: './add-card.page.html',
@@ -14,6 +16,9 @@ export class AddCardPage implements OnInit {
   cvc: any = '';
   date: any = '';
   email: any = '';
+  stripe: any;
+  elements: any;
+  card: any;
   constructor(
     private util: UtilService,
     private api: ApisService,
@@ -23,6 +28,13 @@ export class AddCardPage implements OnInit {
   }
 
   ngOnInit() {
+    // Inicializa Stripe
+    this.stripe = Stripe('pk_test_51PxRvdIIXWFer6qKLrUTEsblKHp46OGTMocj4Qt2AcuFRaAl7FU9Nn6iElE2SI1O15UBMmMPLPEAHyiBltJS1Hdc00GbpkXpvj');
+    this.elements = this.stripe.elements();
+    this.card = this.elements.create('card', {
+      hidePostalCode: true,
+    });
+    this.card.mount('#card-element');
   }
 
   updateRest(body) {
@@ -33,8 +45,9 @@ export class AddCardPage implements OnInit {
   }
 
   addcard() {
-    if (this.email === '' || this.cname === '' || this.cnumber === '' ||
-      this.cvc === '' || this.date === '') {
+    // if (this.email === '' || this.cname === '' || this.cnumber === '' ||
+    //   this.cvc === '' || this.date === '') {
+    if (this.email === '' || this.cname === '' ) {
       this.util.errorToast(this.util.translate('All Fields are required'));
       return false;
     }
@@ -43,24 +56,38 @@ export class AddCardPage implements OnInit {
       this.util.errorToast(this.util.translate('Please enter valid email'));
       return false;
     }
-    const year = this.date.split('-')[0];
-    const month = this.date.split('-')[1];
-    const param = {
-      'card[number]': this.cnumber,
-      'card[exp_month]': month,
-      'card[exp_year]': year,
-      'card[cvc]': this.cvc
-    };
+    // const year = this.date.split('-')[0];
+    // const month = this.date.split('-')[1];
+    // const param = {
+    //   'card[number]': this.cnumber,
+    //   'card[exp_month]': month,
+    //   'card[exp_year]': year,
+    //   'card[cvc]': this.cvc
+    // };
     this.util.show();
-    this.api.httpPost('https://api.stripe.com/v1/tokens', param).subscribe((data: any) => {
-      console.log(data);
-      if (data && data.id) {
-        // this.token = data.id;
+    this.stripe.createToken(this.card).then((result:any) =>{
+      if (result.error){
+        this.util.showErrorAlert(result.error.message);
+        this.util.hide();
+      } else{
+        const token = result.token;
         const customer = {
           description: 'Customer for food app',
-          source: data.id,
+          source: token.id,
           email: this.email
         };
+      
+    
+
+    // this.api.httpPost('https://api.stripe.com/v1/tokens', param).subscribe((data: any) => {
+    //   console.log(data);
+    //   if (data && data.id) {
+    //     // this.token = data.id;
+    //     const customer = {
+    //       description: 'Customer for food app',
+    //       source: data.id,
+    //       email: this.email
+    //     };
         this.api.httpPost('https://api.stripe.com/v1/customers', customer).subscribe((customer: any) => {
           console.log(customer);
           this.util.hide();
@@ -81,9 +108,9 @@ export class AddCardPage implements OnInit {
           }
           this.util.errorToast(this.util.translate('Something went wrong'));
         });
-      } else {
-        this.util.hide();
       }
+      this.util.hide();
+    
     }, (error: any) => {
       console.log(error);
       this.util.hide();

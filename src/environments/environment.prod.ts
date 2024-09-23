@@ -1,5 +1,6 @@
 export const environment = {
-  production: true,
+  // production: true,
+  production: false,
   firebase: {
     apiKey: "AIzaSyA3x_tdkyCJLZZxxWiOuW6qg0aOw1vuXj4",
     authDomain: "goby-a1996.firebaseapp.com",
@@ -16,8 +17,10 @@ export const environment = {
     restKey: "NzZkMGQ0MmUtNmE0Ny00YzBmLTliMjgtNTFmZWQzMWYzNzMw"
   },
   stripe: {
-    publicKey: "pk_live_51HZSxILl147XFj5b5yREuw1R8KOwczzHwSLEfQ4VaiDibrYFiCuARrEFx0q1EVeRTkOtQ7smxsBLxX83zTJUZ3EU00I6mhAFk3",
-    secretKey: "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",
+    // publicKey: "pk_live_51HZSxILl147XFj5b5yREuw1R8KOwczzHwSLEfQ4VaiDibrYFiCuARrEFx0q1EVeRTkOtQ7smxsBLxX83zTJUZ3EU00I6mhAFk3",
+    // secretKey: "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",
+    publicKey: "pk_test_51PxRvdIIXWFer6qKLrUTEsblKHp46OGTMocj4Qt2AcuFRaAl7FU9Nn6iElE2SI1O15UBMmMPLPEAHyiBltJS1Hdc00GbpkXpvj",
+    secretKey: "sk_test_51PxRvdIIXWFer6qK7hb7a5UDA6BKtwjVwhW1OKqbBjHxluvTF4FkzVUoIPwPNp3caKa1myrYkYzZ1DlLs91a1ozi00qYlpgAHR"
   },
   paypal: {
     sandbox: "",
