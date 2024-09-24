@@ -405,7 +405,7 @@ export class CategoryPage implements OnInit {
       buttons: [
         {
           text: this.util.translate('Cancel'),
-          role: 'cancel',
+          role: 'canceled',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel: blah');

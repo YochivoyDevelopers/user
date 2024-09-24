@@ -130,7 +130,13 @@ export class CartPage implements OnInit {
 
   ionViewWillEnter() {
     this.validate();
+    this.refreshAfterPay()
   }
+
+  refreshAfterPay(){
+    this.navCtrl.navigateRoot(['tabs/tab3']);
+  }
+
   getCart() {
     this.navCtrl.navigateRoot(['tabs/tab1']);
   }
