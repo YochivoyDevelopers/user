@@ -83,14 +83,14 @@
             {{'Delivered' | translate}}
           </div>
         </div>
-        <div class="status_detail" *ngIf=" item.status == 'cancel'">
+        <div class="status_detail" *ngIf=" item.status == 'canceled'">
           <div class="deliver_div">
-            {{'Your Order is' | translate}} <strong>Cacelada</strong>
+            {{'Your Order is' | translate}} <strong>{{'Canceled' | translate}}</strong>
           </div>
         </div>
         <div class="status_detail" *ngIf="item.status =='rejected' ">
           <div class="deliver_div">
-            {{'Your Order is' | translate}} <strong>{{'accepted' | translate}}</strong>
+            {{'Your Order is' | translate}} <strong>{{'Rejected' | translate}}</strong>
           </div>
         </div>
         <div class="status_detail"
