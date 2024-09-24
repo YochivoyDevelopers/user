@@ -277,7 +277,7 @@ export class AddNewAddressPage implements OnInit {
     this.util.show();
     this.api.updateAddress(localStorage.getItem('uid'), this.id, param).then((data) => {
       this.util.hide();
-      this.util.showToast('Address updated', 'success', 'bottom');
+      this.util.showToast(this.util.translate('Address updated'), 'success', 'bottom');
       this.navCtrl.back();
     }).catch(error => {
       this.util.hide();
