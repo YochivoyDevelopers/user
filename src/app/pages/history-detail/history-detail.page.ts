@@ -104,7 +104,7 @@ export class HistoryDetailPage implements OnInit {
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel',
+          role: 'canceled',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel: blah');
@@ -172,7 +172,7 @@ export class HistoryDetailPage implements OnInit {
       console.log(data);
       if (data && data.value) {
         this.util.show();
-        this.api.updateOrderStatus(this.id, 'cancel').then((data) => {
+        this.api.updateOrderStatus(this.id, 'canceled').then((data) => {
           this.util.hide();
           const message = this.util.translate('Order ') + this.id + ' ' + this.util.translate(' cancelled by user');
           const title = this.util.translate('Order cancelled');

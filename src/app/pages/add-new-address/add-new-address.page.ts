@@ -48,6 +48,7 @@ export class AddNewAddressPage implements OnInit {
         this.landmark = info.landmark;
         this.lat = info.lat;
         this.lng = info.lng;
+        this.title = info.title || 'home'; 
         this.loadmap(this.lat, this.lng, this.mapEle);
       } else {
         this.from = 'new';
@@ -221,8 +222,8 @@ export class AddNewAddressPage implements OnInit {
           id: id,
           uid: data.uid,
           address: this.address,
-          //lat: this.lat,
-          //lng: this.lng,
+          lat: this.lat,
+          lng: this.lng,
           title: this.title,
           house: this.house,
           landmark: this.landmark
