@@ -24,6 +24,11 @@
         </ion-thumbnail>
         <ion-radio (ionSelect)="changeMethod(card.id)" [value]="card.id" slot="start"></ion-radio>
         <ion-label>**** **** **** {{card.last4}} <br> Expiry {{card.exp_month}} / {{card.exp_year}}</ion-label>
+        
+        <!-- Botón de eliminar tarjeta -->
+        <ion-button color="danger" (click)="deleteCard(card.id)" slot="end">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-radio-group>
     <ion-button expand="block" *ngIf="cards?.length" class="btn_addcard" (click)="payment()">{{'Payment' | translate}}

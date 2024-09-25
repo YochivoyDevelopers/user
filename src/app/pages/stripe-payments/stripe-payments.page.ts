@@ -6,6 +6,10 @@ import * as moment from "moment";
 import swal from "sweetalert2";
 import { NavController } from "@ionic/angular";
 import { Stripe } from '@ionic-native/stripe/ngx';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AddCardPage } from '../add-card/add-card.page'; 
+import Swal from "sweetalert2";
+
 @Component({
   selector: "app-stripe-payments",
   templateUrl: "./stripe-payments.page.html",
@@ -33,7 +37,8 @@ export class StripePaymentsPage implements OnInit {
     private api: ApisService,
     private util: UtilService,
     private navCtrl: NavController,
-    private stripe: Stripe
+    private stripe: Stripe,
+    private http: HttpClient
   ) {}
 
   getCards() {
@@ -45,7 +50,8 @@ export class StripePaymentsPage implements OnInit {
           console.log("Cards: ", cards);
           if (cards && cards.data) {
             this.cards = cards.data;
-            this.card_token = this.cards[0].id;
+            
+            // this.card_token = this.cards[0].id;
           }
         },
         error => {
@@ -94,7 +100,80 @@ export class StripePaymentsPage implements OnInit {
       });
   }
 
+
+  deleteCard(cardId: string) {
+    Swal.fire({
+      title: this.util.translate('Are you sure?'),
+      text: this.util.translate('To delete this card'),
+      showCancelButton: true,
+      cancelButtonText: this.util.translate('Cancel'),
+      showConfirmButton: true,
+      confirmButtonText: this.util.translate('Yes'),
+      backdrop: false,
+      background: 'white'
+    }).then((data) => {
+      if (data && data.value) { // Si el usuario confirma
+        const stripeCustomerId = localStorage.getItem('stripeCustomerId');
+        console.log(`Stripe Customer ID from localStorage: ${stripeCustomerId}`); // Verifica el ID del cliente
+    
+        if (stripeCustomerId) {
+          console.log(`Calling deleteCard with cardId: ${cardId}`); // Verifica el ID de la tarjeta
+          this.api.httpDelete(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources/${cardId}`)
+            .subscribe(
+              (response: any) => {
+                console.log('Card deleted successfully:', response);
+                this.loadCards(); // Cargar tarjetas después de eliminar
+              },
+              error => {
+                if (error?.error?.error) {
+                  console.error('Stripe error:', error.error.error);
+                  this.util.showErrorAlert(error.error.error.message);
+                } else {
+                  console.error('General error:', error);
+                  this.util.showErrorAlert(this.util.translate('Something went wrong'));
+                }
+              }
+            );
+        } else {
+          this.util.showErrorAlert(this.util.translate('Customer not found'));
+        }
+      }
+    });
+  }
+  
+  
+
+ loadCards() {
+  const stripeCustomerId = localStorage.getItem('stripeCustomerId');
+  console.log(`Loading cards for Customer ID: ${stripeCustomerId}`); // Verifica el ID del cliente
+
+  if (stripeCustomerId) {
+    this.api.httpGet(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources`)
+      .subscribe(
+        (response: any) => {
+          this.cards = response.data; // lista de tarjetas
+          console.log('Cards loaded successfully:', this.cards); 
+        },
+        error => {
+          console.error('Error loading cards:', error);
+          if (error?.error?.error) {
+            console.error('Stripe error:', error.error.error);
+            this.util.showErrorAlert(error.error.error.message);
+          } else {
+            this.util.showErrorAlert(this.util.translate('Failed to load cards'));
+          }
+        }
+      );
+  } else {
+    console.error('No Stripe Customer ID found in localStorage.');
+    this.util.showErrorAlert(this.util.translate('Customer not found'));
+  }
+}
+
+  
+
   async ngOnInit() {
+    this.loadCards();
     const foods = await JSON.parse(localStorage.getItem("foods"));
     let recheck = await foods.filter(x => x.quantiy > 0);
     console.log(recheck);
@@ -141,6 +220,7 @@ export class StripePaymentsPage implements OnInit {
       this.cart = [];
     }
   }
+  
 
   async calculate() {
     console.log("cart--->,", this.cart);
@@ -340,7 +420,8 @@ export class StripePaymentsPage implements OnInit {
             amount: parseInt(this.grandTotal) * 100,
             currency: "mxn",
             customer: this.cid,
-            card: this.card_token
+          // card: this.card_token
+            source: this.card_token 
           };
           console.log("options", options);
           const url = "https://api.stripe.com/v1/charges";
