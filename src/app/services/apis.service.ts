@@ -532,6 +532,16 @@ export class ApisService {
     return this.http.get(url, header);
   }
 
+    //para eliminar
+    httpDelete(url: string) {
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', `Bearer ${'sk_test_51PxRvdIIXWFer6qK7hb7a5UDA6BKtwjVwhW1OKqbBjHxluvTF4FkzVUoIPwPNp3caKa1myrYkYzZ1DlLs91a1ozi00qYlpgAHR'}`);
+    
+      return this.http.delete(url, { headers });
+    }
+
+
   JSON_to_URLEncoded(element, key?, list?) {
     let new_list = list || [];
     if (typeof element == "object") {

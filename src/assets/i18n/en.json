@@ -188,5 +188,11 @@
   "Incorrect email or password. Please try again.": "Correo electrónico o contraseña incorrectos. Inténtelo de nuevo.",
   "Canceled": "Cancelada",
   "Rejected": "Rechazada",
-  "Address updated": "Dirección Actualizada"
+  "Address updated": "Dirección Actualizada",
+  "You can only add up to 3 cards": "Solo puedes agregar 3 tarjetas",
+  "To delete this card": "¿Seguro que deseas eliminar esta tarjeta?",
+  "Card already added": "Tarjeta ya añadida",
+  "This card has already been added.": "Esta tarjeta ya ha sido agregada.",
+  "There was an issue with adding the card.": "Hubo un problema al agregar la tarjeta.",
+  "OK": "Aceptar"
 }
