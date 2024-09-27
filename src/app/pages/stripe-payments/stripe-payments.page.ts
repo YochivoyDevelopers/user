@@ -113,7 +113,7 @@ export class StripePaymentsPage implements OnInit {
       background: 'white'
     }).then((data) => {
       if (data && data.value) { // Si el usuario confirma
-        const stripeCustomerId = localStorage.getItem('stripeCustomerId');
+        const stripeCustomerId = localStorage.getItem('uid');
         console.log(`Stripe Customer ID from localStorage: ${stripeCustomerId}`); // Verifica el ID del cliente
     
         if (stripeCustomerId) {
@@ -144,7 +144,8 @@ export class StripePaymentsPage implements OnInit {
   
 
  loadCards() {
-  const stripeCustomerId = localStorage.getItem('stripeCustomerId');
+  const stripeCustomerId = localStorage.getItem('uid');
+  // console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
   console.log(`Loading cards for Customer ID: ${stripeCustomerId}`); // Verifica el ID del cliente
 
   if (stripeCustomerId) {

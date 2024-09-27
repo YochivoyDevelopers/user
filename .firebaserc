@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "yochivoy-app"
-  }
+    "default": "yochivoy-app",
+    "delivery-54574": "deliveryapp-54574"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

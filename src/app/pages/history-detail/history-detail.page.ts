@@ -33,6 +33,8 @@ export class HistoryDetailPage implements OnInit {
   restFCM: any;
   driverFCM: any;
   dId: any;
+  payKey: any;
+  refund: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private api: ApisService,
@@ -55,7 +57,6 @@ export class HistoryDetailPage implements OnInit {
   }
 
   getOrder() {
-
     this.api.getOrderById(this.id).then((data) => {
       this.loaded = true;
       console.log(data);
@@ -85,6 +86,12 @@ export class HistoryDetailPage implements OnInit {
         // if (this.status === 'delivered') {
         //   this.presentAlertConfirm();
         // }
+        if (data.paykey && data.paid !== 'paypal') {
+          this.refund = true;
+          this.payKey = data.paykey; // Almacena el key para el reembolso
+        } else {
+          this.refund = false;
+        }
       }
     }, error => {
       console.log('error in orders', error);
@@ -161,7 +168,7 @@ export class HistoryDetailPage implements OnInit {
   changeStatus() {
     Swal.fire({
       title: this.util.translate('Are you sure?'),
-      text: this.util.translate('To Cancel this order'),
+      text: this.util.translate('To Cancel this order and process refund'),
       showCancelButton: true,
       cancelButtonText: this.util.translate('Cancel'),
       showConfirmButton: true,
@@ -169,13 +176,41 @@ export class HistoryDetailPage implements OnInit {
       backdrop: false,
       background: 'white'
     }).then((data) => {
-      console.log(data);
       if (data && data.value) {
         this.util.show();
-        this.api.updateOrderStatus(this.id, 'canceled').then((data) => {
+        this.api.updateOrderStatus(this.id, 'canceled').then((data: any) => {
+          
+          // Procesar reembolso si es posible
+          if (this.refund && this.payKey) {
+            const param = {
+              charge: this.payKey,
+            };
+            this.api.httpPost('https://api.stripe.com/v1/refunds', param).subscribe((refundData) => {
+              console.log('Refund successful', refundData);
+              Swal.fire({
+                title: this.util.translate('Success'),
+                text: this.util.translate('Order refund successfully'),
+                icon: 'success',
+              });
+              this.navCtrl.back();
+            }, error => {
+              console.log('Refund error', error);
+              this.util.errorToast('Something went wrong with the refund');
+            });
+          } else {
+            Swal.fire({
+              title: this.util.translate('Success'),
+              text: this.util.translate('Order canceled without refund'),
+              icon: 'success',
+            });
+            this.navCtrl.back();
+          }
+
+          this.util.hide();
           this.util.hide();
           const message = this.util.translate('Order ') + this.id + ' ' + this.util.translate(' cancelled by user');
           const title = this.util.translate('Order cancelled');
+          
           this.api.sendNotification(message, title, this.driverFCM).subscribe(data => {
             console.log(data);
           });
@@ -194,19 +229,22 @@ export class HistoryDetailPage implements OnInit {
             });
           }
 
-          this.navCtrl.back();
+          // this.navCtrl.back();
+          
+
+
+
         }, error => {
           this.util.hide();
-          console.log(error);
           this.util.errorToast('Something went wrong');
         }).catch(error => {
           this.util.hide();
-          console.log(error);
           this.util.errorToast('Something went wrong');
         });
       }
     });
   }
+
 
   getCurrency() {
     return this.util.getCurrecySymbol();
