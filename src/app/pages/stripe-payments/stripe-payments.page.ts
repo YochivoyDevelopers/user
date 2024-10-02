@@ -42,34 +42,54 @@ export class StripePaymentsPage implements OnInit {
   ) {}
 
   getCards() {
-    this.api
-      .httpGet(`https://api.stripe.com/v1/customers/${this.cid}/sources?object=card`)
+    const stripeCustomerId = localStorage.getItem('stripeCustomerId'); // Usar stripeCustomerId
+    if (!stripeCustomerId) {
+      this.util.showErrorAlert(this.util.translate('Customer not found'));
+      return;
+    }
+
+    this.api.httpGet(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources?object=card`)
       .subscribe(
         (cards: any) => {
           this.util.hide();
-          console.log("Cards: ", cards);
           if (cards && cards.data) {
             this.cards = cards.data;
-            
-            // this.card_token = this.cards[0].id;
           }
         },
         error => {
           this.util.hide();
-          console.log(error);
-          this.util.hide();
-          if (
-            error &&
-            error.error &&
-            error.error.error &&
-            error.error.error.message
-          ) {
-            this.util.showErrorAlert(error.error.error.message);
-            return false;
-          }
           this.util.errorToast(this.util.translate("Something went wrong"));
         }
       );
+  }
+
+  deleteCard(cardId: string) {
+    Swal.fire({
+      title: this.util.translate('Are you sure?'),
+      text: this.util.translate('To delete this card'),
+      showCancelButton: true,
+      confirmButtonText: this.util.translate('Yes'),
+      cancelButtonText: this.util.translate('Cancel')
+    }).then((data) => {
+      if (data && data.value) { // Si el usuario confirma
+        const stripeCustomerId = localStorage.getItem('stripeCustomerId'); // Usar stripeCustomerId
+        if (!stripeCustomerId) {
+          this.util.showErrorAlert(this.util.translate('Customer not found'));
+          return;
+        }
+
+        // Eliminar tarjeta
+        this.api.httpDelete(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources/${cardId}`)
+          .subscribe(
+            () => {
+              this.getCards(); // Refrescar la lista de tarjetas
+            },
+            error => {
+              this.util.showErrorAlert(this.util.translate('Something went wrong'));
+            }
+          );
+      }
+    });
   }
 
   getProfile() {
@@ -99,79 +119,65 @@ export class StripePaymentsPage implements OnInit {
         this.util.errorToast(this.util.translate("Something went wrong"));
       });
   }
-
-
-  deleteCard(cardId: string) {
-    Swal.fire({
-      title: this.util.translate('Are you sure?'),
-      text: this.util.translate('To delete this card'),
-      showCancelButton: true,
-      cancelButtonText: this.util.translate('Cancel'),
-      showConfirmButton: true,
-      confirmButtonText: this.util.translate('Yes'),
-      backdrop: false,
-      background: 'white'
-    }).then((data) => {
-      if (data && data.value) { // Si el usuario confirma
-        const stripeCustomerId = localStorage.getItem('uid');
-        console.log(`Stripe Customer ID from localStorage: ${stripeCustomerId}`); // Verifica el ID del cliente
-    
-        if (stripeCustomerId) {
-          console.log(`Calling deleteCard with cardId: ${cardId}`); // Verifica el ID de la tarjeta
-          this.api.httpDelete(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources/${cardId}`)
-            .subscribe(
-              (response: any) => {
-                console.log('Card deleted successfully:', response);
-                this.loadCards(); // Cargar tarjetas después de eliminar
-              },
-              error => {
-                if (error?.error?.error) {
-                  console.error('Stripe error:', error.error.error);
-                  this.util.showErrorAlert(error.error.error.message);
-                } else {
-                  console.error('General error:', error);
-                  this.util.showErrorAlert(this.util.translate('Something went wrong'));
-                }
-              }
-            );
-        } else {
-          this.util.showErrorAlert(this.util.translate('Customer not found'));
-        }
-      }
-    });
-  }
-  
   
 
- loadCards() {
-  const stripeCustomerId = localStorage.getItem('uid');
-  // console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-  console.log(`Loading cards for Customer ID: ${stripeCustomerId}`); // Verifica el ID del cliente
-
-  if (stripeCustomerId) {
+  loadCards() {
+    const stripeCustomerId = localStorage.getItem('stripeCustomerId'); // Usar stripeCustomerId, no uid
+    console.log(`Loading cards for Customer ID: ${stripeCustomerId}`); // Verifica el ID del cliente
+  
+    if (!stripeCustomerId || stripeCustomerId.trim() === '') {
+      console.error('No valid Stripe Customer ID found in localStorage.');
+      this.util.showErrorAlert(this.util.translate('Customer not found'));
+      return;
+    }
+  
+    // this.util.show(); // Mostrar overlay de carga antes de la solicitud
+  
+    // Realiza la solicitud para obtener las tarjetas
     this.api.httpGet(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources`)
       .subscribe(
         (response: any) => {
-          this.cards = response.data; // lista de tarjetas
-          console.log('Cards loaded successfully:', this.cards); 
+          this.cards = response.data; // Almacena las tarjetas en 'this.cards'
+          console.log('Cards loaded successfully:', this.cards);
+          this.util.hide(); // Oculta el overlay después de cargar las tarjetas
         },
         error => {
           console.error('Error loading cards:', error);
+          this.util.showErrorAlert(this.util.translate('Error loading cards'));
+          this.util.hide(); // Oculta el overlay también en caso de error
+        }
+      );
+  }
+  
+
+  addCard(cardDetails) {
+    const stripeCustomerId = localStorage.getItem('uid');
+  
+    if (!stripeCustomerId) {
+      this.util.showErrorAlert(this.util.translate('Customer not found'));
+      return;
+    }
+  
+   
+    this.api.httpPost(`https://api.stripe.com/v1/customers/${stripeCustomerId}/sources`, cardDetails)
+      .subscribe(
+        (response: any) => {
+          console.log('Card added successfully:', response);
+          this.loadCards(); // Carga tarjetas después de agregar una nueva
+          this.util.showToast("Tarjeta agregada con éxito.", "success", "bottom"); // Mensaje de éxito
+        },
+        error => {
           if (error?.error?.error) {
             console.error('Stripe error:', error.error.error);
             this.util.showErrorAlert(error.error.error.message);
           } else {
-            this.util.showErrorAlert(this.util.translate('Failed to load cards'));
+            console.error('General error:', error);
+            this.util.showErrorAlert(this.util.translate('Something went wrong'));
           }
         }
       );
-  } else {
-    console.error('No Stripe Customer ID found in localStorage.');
-    this.util.showErrorAlert(this.util.translate('Customer not found'));
-  }
-}
+  }
 
-  
 
   async ngOnInit() {
     this.loadCards();
@@ -333,75 +339,13 @@ export class StripePaymentsPage implements OnInit {
     }
   }
 
-  /// OLD calc
-  // async calculate(foods) {
-  //   console.log(foods);
-  //   let item = foods.filter(x => x.quantiy > 0);
-  //   console.log(item);
-  //   this.totalPrice = 0;
-  //   this.totalItem = 0;
-  //   await item.forEach(element => {
-  //     this.totalItem = this.totalItem + element.quantiy;
-  //     this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
-  //   });
-  //   this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-  //   console.log('total item', this.totalItem);
-  //   console.log('=====>', this.totalPrice);
-  //   const tax = (parseFloat(this.totalPrice) * 21) / 100;
-  //   this.serviceTax = tax.toFixed(2);
-  //   console.log('tax->', this.serviceTax);
-  //   this.deliveryCharge = 5;
-  //   this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
-  //   this.grandTotal = this.grandTotal.toFixed(2);
-  //   console.log('grand totla', this.grandTotal);
-  //   if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
-  //     if (this.coupon.type === '%') {
-  //       console.log('per');
-  //       function percentage(totalValue, partialValue) {
-  //         return (100 * partialValue) / totalValue;
-  //       }
-  //       const totalPrice = percentage(parseFloat(this.totalPrice).toFixed(2), this.coupon.discout);
-  //       console.log('============>>>>>>>>>>>>>>>', totalPrice);
-  //       this.dicount = totalPrice.toFixed(2);
-  //       this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-  //       console.log('------------>>>>', this.totalPrice);
-  //       this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-  //       const tax = (parseFloat(this.totalPrice) * 21) / 100;
-  //       this.serviceTax = tax.toFixed(2);
-  //       console.log('tax->', this.serviceTax);
-  //       this.deliveryCharge = 5;
-  //       this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
-  //       this.grandTotal = this.grandTotal.toFixed(2);
-  //     } else {
-  //       console.log('$');
-  //       console.log('per');
-  //       const totalPrice = parseFloat(this.totalPrice) - this.coupon.discout;
-  //       console.log('============>>>>>>>>>>>>>>>', totalPrice);
-  //       this.dicount = this.coupon.discout;
-  //       this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-  //       console.log('------------>>>>', this.totalPrice);
-  //       this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-  //       const tax = (parseFloat(this.totalPrice) * 21) / 100;
-  //       this.serviceTax = tax.toFixed(2);
-  //       console.log('tax->', this.serviceTax);
-  //       this.deliveryCharge = 5;
-  //       this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
-  //       this.grandTotal = this.grandTotal.toFixed(2);
-  //     }
-  //   } else {
-  //     console.log('not satisfied');
-  //     this.coupon = null;
-  //     localStorage.removeItem('coupon');
-  //   }
-  // }
 
-  // OLD calc
   /**
    * Registra el pago con Stripe
    */
   payment() {
     console.log("place order");
-
+  
     swal
       .fire({
         title: this.util.translate("Are you sure?"),
@@ -417,13 +361,21 @@ export class StripePaymentsPage implements OnInit {
         console.log(data);
         if (data && data.value) {
           console.log("Go to processed");
+  
+          const stripeCustomerId = localStorage.getItem("stripeCustomerId"); // Usar stripeCustomerId en lugar de uid
+  
+          if (!stripeCustomerId) {
+            this.util.showErrorAlert(this.util.translate('Customer not found'));
+            return;
+          }
+  
           const options = {
             amount: parseInt(this.grandTotal) * 100,
             currency: "mxn",
-            customer: this.cid,
-          // card: this.card_token
-            source: this.card_token 
+            customer: stripeCustomerId, // Usar stripeCustomerId
+            source: this.card_token // Token de la tarjeta seleccionada
           };
+  
           console.log("options", options);
           const url = "https://api.stripe.com/v1/charges";
           this.util.show();
@@ -440,11 +392,9 @@ export class StripePaymentsPage implements OnInit {
               );
               this.createOrder();
             },
-            // Maneja los errores
             error => {
               this.util.hide();
               console.log(error);
-              this.util.hide();
               if (
                 error &&
                 error.error &&
@@ -460,176 +410,114 @@ export class StripePaymentsPage implements OnInit {
         }
       });
   }
-
-  degreesToRadians(degrees) {
-    return (degrees * Math.PI) / 180;
-  }
-
-  distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
-    console.log(lat1, lon1, lat2, lon2);
-    const earthRadiusKm = 6371;
-    const dLat = this.degreesToRadians(lat2 - lat1);
-    const dLon = this.degreesToRadians(lon2 - lon1);
-    lat1 = this.degreesToRadians(lat1);
-    lat2 = this.degreesToRadians(lat2);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return earthRadiusKm * c;
-  }
-
-  /**
-   * 
-   */
+  
   async createOrder() {
     this.util.show("Orden Creada");
     this.api
       .checkAuth()
-      .then(
-        async (data: any) => {
-          console.log(data);
-          if (data) {
-            // not from saved address then create new and save
-            if (!this.deliveryAddress.id || this.deliveryAddress.id === "") {
-              const addressId = this.util.makeid(10);
-              const newAddress = {
-                id: addressId,
-                uid: data.uid,
-                address: this.deliveryAddress.address,
-                lat: this.deliveryAddress.lat,
-                lng: this.deliveryAddress.lng,
-                title: "home",
-                house: "",
-                landmark: ""
-              };
-              await this.api
-                .addNewAddress(data.uid, addressId, newAddress)
-                .then(
-                  data => {
-                    this.deliveryAddress.id = addressId;
-                  },
-                  error => {
-                    console.log(error);
-                  }
-                )
-                .catch(error => {
-                  console.log(error);
-                });
-            }
-            // const foods = await JSON.parse(localStorage.getItem('foods'));
-            // let recheck = await foods.filter(x => x.quantiy > 0);
-            // console.log('ordered food', recheck);
-            let id = this.util.makeid(10);
-            await localStorage.removeItem("foods");
-            await localStorage.removeItem("vid");
-            await localStorage.removeItem("totalItem");
-            const uid = localStorage.getItem("uid");
-            const lng = localStorage.getItem("language");
-            const selectedCity = localStorage.getItem("selectedCity");
-            
-            // Clear all localstorage objects
-            await localStorage.clear();
-
-            // Set items on LocalStorage: May change to Session storage
-            localStorage.setItem("uid", uid);
-            localStorage.setItem("language", lng);
-            localStorage.setItem("selectedCity", selectedCity);
-
-            // Parametro para ser pasado a la coleccion de orden
-            console.log(data);
-            const param = {
+      .then(async (data: any) => {
+        if (data) {
+          // Si la dirección no está guardada, crear una nueva
+          if (!this.deliveryAddress.id || this.deliveryAddress.id === "") {
+            const addressId = this.util.makeid(10);
+            const newAddress = {
+              id: addressId,
               uid: data.uid,
-              userId: data.uid,
-              orderId: id,
-              vid: this.vid,
-              cardBrand: this.cardBrand,
-              order: JSON.stringify(this.cart),
-              time: moment().format("llll"),
-              address: this.deliveryAddress,
-              total: this.totalPrice,
-              grandTotal: this.grandTotal,
-              serviceTax: this.serviceTax,
-              deliveryCharge: 25,
-              status: "created",
-              restId: this.vid,
-              paid: "stripe",
-              paykey: this.payKey,
-              appliedCoupon: this.coupon ? true : false,
-              couponId: this.coupon ? this.coupon.id : "NA",
-              coupon: this.coupon ? JSON.stringify(this.coupon) : "NA",
-              dicount: this.coupon ? this.dicount : 0
+              address: this.deliveryAddress.address,
+              lat: this.deliveryAddress.lat,
+              lng: this.deliveryAddress.lng,
+              title: "home",
+              house: "",
+              landmark: ""
             };
-
-
-            console.log("sent", param);
-
-            // Por medio de API, crea la orden en Firestore
-            this.api
-              .createOrder(id, param)
-              .then(
-                async data => {
-                  this.util.hide();
-                  if (this.venueFCM && this.venueFCM !== "") {
-                    this.api
-                      .sendNotification(
-                        this.util.translate("New Order Received"),
-                        this.util.translate("New Order"),
-                        this.venueFCM
-                      )
-                      .subscribe(
-                        data => {
-                          console.log("send notifications", data);
-                        },
-                        error => {
-                          console.log(error);
-                        }
-                      );
-                  }
-                  swal.fire({
-                    title: this.util.translate("Success"),
-                    text: this.util.translate("Your is created succesfully"),
-                    icon: "success",
-                    backdrop: false
-                  });
-                  this.navCtrl.navigateRoot(["tabs/tab2"]);
-                  console.log(data);
-                },
-                error => {
-                  this.util.hide();
-                  this.util.errorToast(
-                    this.util.translate("Something went wrong")
-                  );
-                  this.router.navigate(["tabs"]);
-                }
-              )
+            await this.api
+              .addNewAddress(data.uid, addressId, newAddress)
+              .then(data => {
+                this.deliveryAddress.id = addressId;
+              })
               .catch(error => {
-                this.util.hide();
-                this.util.errorToast(
-                  this.util.translate("Something went wrong")
-                );
-                this.router.navigate(["tabs"]);
                 console.log(error);
               });
-          } else {
-            this.util.hide();
-            this.util.errorToast(this.util.translate("Session expired"));
-            this.router.navigate(["login"]);
           }
-        },
-        error => {
+  
+          let id = this.util.makeid(10);
+  
+         
+          const uid = localStorage.getItem("uid");
+          const lng = localStorage.getItem("language");
+          const selectedCity = localStorage.getItem("selectedCity");
+          const stripeCustomerId = localStorage.getItem("stripeCustomerId");
+  
+          // Limpiar el localStorage 
+          await localStorage.clear();
+          localStorage.setItem("uid", uid);
+          localStorage.setItem("language", lng);
+          localStorage.setItem("selectedCity", selectedCity);
+          localStorage.setItem("stripeCustomerId", stripeCustomerId); // Mantener stripeCustomerId
+  
+          const param = {
+            uid: data.uid,
+            userId: data.uid,
+            orderId: id,
+            vid: this.vid,
+            cardBrand: this.cardBrand,
+            order: JSON.stringify(this.cart),
+            time: moment().format("llll"),
+            address: this.deliveryAddress,
+            total: this.totalPrice,
+            grandTotal: this.grandTotal,
+            serviceTax: this.serviceTax,
+            deliveryCharge: 25,
+            status: "created",
+            restId: this.vid,
+            paid: "stripe",
+            paykey: this.payKey,
+            appliedCoupon: this.coupon ? true : false,
+            couponId: this.coupon ? this.coupon.id : "NA",
+            coupon: this.coupon ? JSON.stringify(this.coupon) : "NA",
+            dicount: this.coupon ? this.dicount : 0
+          };
+  
+          // Crear la orden en Firestore
+          this.api.createOrder(id, param)
+            .then(async data => {
+              this.util.hide();
+              if (this.venueFCM && this.venueFCM !== "") {
+                this.api.sendNotification(
+                  this.util.translate("New Order Received"),
+                  this.util.translate("New Order"),
+                  this.venueFCM
+                ).subscribe(data => {
+                  console.log("send notifications", data);
+                });
+              }
+              swal.fire({
+                title: this.util.translate("Success"),
+                text: this.util.translate("Your order is created successfully"),
+                icon: "success",
+                backdrop: false
+              });
+              this.navCtrl.navigateRoot(["tabs/tab2"]);
+              console.log(data);
+            })
+            .catch(error => {
+              this.util.hide();
+              this.util.errorToast(this.util.translate("Something went wrong"));
+              this.router.navigate(["tabs"]);
+            });
+        } else {
           this.util.hide();
           this.util.errorToast(this.util.translate("Session expired"));
           this.router.navigate(["login"]);
         }
-      )
+      })
       .catch(error => {
         this.util.hide();
         this.util.errorToast(this.util.translate("Session expired"));
         this.router.navigate(["login"]);
-        console.log(error);
       });
   }
+  
 
   ionViewWillEnter() {
     this.getProfile();
