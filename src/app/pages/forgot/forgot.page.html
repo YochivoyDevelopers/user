@@ -1,3 +1,5 @@
+
+<!-- Nuevo -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -7,31 +9,52 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido -->
 <ion-content class="ion-padding">
-  <div class="login-logo">
-    <img src="assets/icon.png" class="logo_icon" alt="yoga">
-  </div>
+  <div class="ion-padding">
 
-  <form #loginForm="ngForm" novalidate>
-    <ion-list lines="none">
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
-          #email="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          {{'Email is required' | translate}}
-        </p>
-      </ion-text>
+    <!-- Logo -->
+    <div class="login-logo">
+      <img src="assets/icon.png" class="logo-icon" alt="foodies">
+    </div>
 
-      <ion-row class="ion-no-margin ion-no-padding" style="margin-top: 20px;">
-        <ion-col class="ion-no-margin ion-no-padding">
-          <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block">
+    <!-- Formulario -->
+    <form #loginForm="ngForm" class="form" novalidate>
+      <!-- para poner los componentes del formulario (ion-list)-->
+      <div class="list-form" > 
+        <!-- Para poner un componente del formulario (ion-item) "email"-->
+        <div class="item-form">
+          <!-- Input email -->
+          <input 
+            [(ngModel)]="login.email" 
+            type="email" 
+            [placeholder]="('Email' | translate) || '&nbsp;'" 
+            name="email"
+            #email="ngModel" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            id="email"
+            required
+          >
+        </div>
+        <!-- Mensaje de error email -->
+        <div class="error-msg">
+          <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+            {{'Email is required' | translate}}
+          </p>
+        </div>
+
+        <!-- boton Reset pass-->
+         <br>
+        <div>
+          <button class="btnfp" (click)="onLogin(loginForm)" type="submit" expand="block">
             {{'Send Link' | translate}}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-  </form>
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+
+  </div>
 </ion-content>

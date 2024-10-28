@@ -1,1 +1,5 @@
-
+@media (prefers-color-scheme: dark) {
+    ion-tab-button.tab-selected {
+        color: rgb(255, 56, 76) !important;
+      }
+  }

@@ -1,13 +1,9 @@
-ion-content{
-//   --background: transparent !important;
-}
 ion-label {
     display: block;
 }
 .group {
     padding: 10px 15px;
     width: 100%;
-    background: #fff !important;
     .mainContent{
         padding: 5px 10px;
         .savedTitle{
@@ -24,9 +20,10 @@ ion-label {
         .list{
             margin-top: 20px;
             position: relative;
-            // display: flex;
-            // flex-wrap: nowrap;
             overflow-x: auto;
+            background-color: rgba(255, 137, 137, 0.123);
+            border-radius: 0.5rem;
+            padding: 1rem;
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -41,13 +38,62 @@ ion-label {
                 text-transform: capitalize;
             }
             .name{
-                color: lightgray;
+                color: rgb(70, 70, 70);
                 font-size: 0.7rem;
             }
-            .moreIcon{
+            .moreIcon {
                 position: absolute;
-                right: 0px;
-                top: 1px;
+                right: 1px;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+        }
+    }
+}
+
+.btn {
+    color: var(--ion-color-primary);
+    padding: 13px;
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: rgba(255, 56, 76, 0);
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.btn:active {
+    background-color: rgba(43, 37, 37, 0.301);
+    transform: scale(0.98); /* efecto de "presión" */
+    opacity: 0.8; /* o un ligero cambio en opacidad */
+}
+
+.btn:hover {
+    background-color: rgba(148, 134, 135, 0.075); /* Color de fondo más notable al pasar el cursor */
+    transform: scale(1.02); /* Ligero aumento de tamaño */
+}
+
+
+// Modo oscuro
+@media (prefers-color-scheme: dark) {
+    .btn {
+        color: rgb(211, 46, 63);
+    }
+
+    .group {
+        .mainContent{
+            .list{
+                background-color: rgba(255, 137, 137, 0.123);
+                .title{
+                    color: rgb(255, 255, 255);
+                }
+                .name{
+                    color: rgb(212, 212, 212);
+                } 
             }
         }
     }
