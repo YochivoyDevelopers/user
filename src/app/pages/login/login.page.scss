@@ -1,84 +1,144 @@
-ion-header{
-    --box-shadow:none;
-}
-ion-footer{
-    --box-shadow:none;
-}
-ion-toolbar{
-    border-color: none !important;
-    ion-title {
-        --color: white;
+
+
+@media (max-width: 500px){
+    .formContain{
+        width: 100%;
     }
 }
+
+
+
+
+// Modo claro
 .login-logo {
-        text-align: center;
-        margin: auto;
-        right: 0px;
-        left: 0px;
-        margin-top: 20%;
-        margin-bottom: 20px;
-        .logo_icon{
-            width: 110px !important;
-        }
-        .login-name{
-            margin: 0px;
-            font-size: 1.5rem;
-        }
-        .subTitle{
-            margin: 0px;
-            font-size: 1rem;
-        }
+    text-align: center;
+    margin: auto;
+    right: 0px;
+    left: 0px;
+    margin-top: 20%;
+    margin-bottom: 20px;
+    .logo-icon{
+        width: 110px !important;
     }
-    .frgTag{
-            text-align: right;
-            color:var(--ion-color-primary);
+    .login-name{
+        margin: 0px;
+        font-size: 1.5rem;
     }
-    .btn_class{
-        color: white ;
-        height: 50px;
+    .login-subTitle{
+        margin: 0px;
+        font-size: 1rem;
+    }
+}
+.login-logo img {
+    max-width: 150px;
+}
+
+.list-form{
+    margin: 0px;
+}
+.item-form{
+    border-radius: 5px !important;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.item-form input{
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+.item-form label{
+    display: none;
+}
+
+.form{
+    display: flex;
+    width: 1005;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.forgot-pwrd{
+    text-align: right;
+    color:var(--ion-color-primary);
+}
+
+.login-btn{
+    color: white ;
+    height: 50px;
+}
+
+.loginbtn {
+    color: white ;
+    padding: 13px;
+    border: none;
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--ion-color-primary);
+    width: 85%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.createAcc{
+    text-align: center; 
+   .registerTag{
+        color: var(--ion-color-primary);
+  
+        font-weight: bold;
+   }
+} 
+
+.error-msg{
+    color: red;
+}
+
+
+// Modo oscuro
+@media (prefers-color-scheme: dark) {
+    .login-name {
+        color: #ffffff;
+    }
+    .login-subTitle {
+        color: #bbbbbb;
     }
     .login-logo img {
-         max-width: 150px;
+        filter: brightness(0.8); 
     }
-    .list {
-        margin-bottom: 0;
+
+    .item-form input {
+        background-color: rgba(0, 0, 0, 0);;
+        color: #ffffff;
+        border-bottom: 1px solid #ffffff; 
     }
-    ion-list{
-        --ion-background-color:transparent;
-        margin: 0px;
+
+    .forgot-pwrd {
+        color: rgb(255, 56, 76);
     }
-    ion-item{
-         --ion-background-color:#f3f3f3;
-        border-radius: 5px !important;
-        margin-top: 10px;
-        
+
+    .loginbtn {
+        background-color: rgb(255, 56, 76);
     }
-  
-   .createAcc{
-        text-align: center; 
+
+    .createAcc{
+        color: #ffffff;
        .registerTag{
-            color: var(--ion-color-primary);
-      
+            color: rgb(255, 56, 76);
             font-weight: bold;
        }
-   } 
-.btns{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0px;
-    .flagActive{
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        border: 2px solid var(--ion-color-primary);
-        margin: 0px 10px;
+    } 
+
+    .item-form input::placeholder {
+        color: #bbbbbb; 
     }
-    .flagDeactive{
-        height: 45px;
-        width: 45px;
-        margin: 0px 10px;
-        opacity: .5;
+
+    .item-form input:focus {
+        background-color: #333333;
+        color: #ffffff; 
+        outline: none;
     }
-}   
+}

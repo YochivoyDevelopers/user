@@ -1,57 +1,82 @@
+<!-- Nuevo -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button mode="md"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{'Add new address' | translate}}</ion-title>
+    
+    <!-- Para nuevo -->
+    <ion-title *ngIf="from ==='new'">{{'Add new address' | translate}}</ion-title>
+
+    <!-- Para editar -->
+    <ion-title *ngIf="from ==='edit'">{{'Edit address' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido -->
 <ion-content>
-  <div class="div_map" #map></div>
-  <div class="informations">
-    <ion-item>
-      <ion-label position="stacked">{{'LOCATIONS' | translate}}</ion-label>
-      <ion-input [(ngModel)]="address"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked"
-        >{{'HOUSE / FLAT NO' | translate}}</ion-label
-      >
-      <ion-input [(ngModel)]="house"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">{{'LANDMARK' | translate}}</ion-label>
-      <ion-input [(ngModel)]="landmark"></ion-input>
-    </ion-item>
-    <ion-radio-group [(ngModel)]="title">
-      <ion-label class="title">
-        {{'SAVE AS' | translate}}
-      </ion-label>
-      <ion-item style="margin-top: 20px;">
-        <ion-icon name="home-outline" slot="start"></ion-icon>
-        <ion-label>{{'HOME' | translate}}</ion-label>
-        <ion-radio value="home"></ion-radio>
-      </ion-item>
+  <div>
+    <!-- Mapa -->
+    <div class="div_map" #map></div>
+    <!-- Formulario -->
+    <div class="form">
+      <div class="list-form">
 
-      <ion-item>
-        <ion-icon name="briefcase-outline" slot="start"></ion-icon>
-        <ion-label>{{'WORK' | translate}}</ion-label>
-        <ion-radio value="work"></ion-radio>
-      </ion-item>
+        <!-- Ubicacion -->
+        <div class="item-form">
+          <p class="letra" position="stacked">{{'LOCATIONS' | translate}}</p>
+          <input [(ngModel)]="address" disabled>
+        </div>
 
-      <ion-item>
-        <ion-icon name="navigate-outline" slot="start"></ion-icon>
-        <ion-label>{{'OTHER' | translate}}</ion-label>
-        <ion-radio value="other"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-    <ion-button *ngIf="from ==='new'" (click)="addAddress()" expand="block">
-      {{'Add' | translate}}
-    </ion-button>
+        <!-- No. de casa -->
+        <div class="item-form">
+          <p class="letra"  position="stacked">{{'HOUSE / FLAT NO' | translate}}</p>
+          <input [(ngModel)]="house">
+        </div>
 
-    <ion-button *ngIf="from ==='edit'" (click)="updateAddress()" expand="block">
-      {{'Update' | translate}}
-    </ion-button>
+        <!-- Punto de referencia -->
+        <div class="item-form">
+          <p class="letra" position="stacked">{{'LANDMARK' | translate}}</p>
+          <input [(ngModel)]="landmark">
+        </div>
+
+        <!-- Guardar como (radio button) -->
+        <ion-radio-group [(ngModel)]="title">
+          <p class="title">
+            {{'SAVE AS' | translate}}
+          </p>
+          <!-- Home -->
+          <ion-item style="margin-top: 20px;">
+            <ion-icon name="home-outline" slot="start"></ion-icon>
+            <ion-label>{{'HOME' | translate}}</ion-label>
+            <ion-radio value="home"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="briefcase-outline" slot="start"></ion-icon>
+            <ion-label>{{'WORK' | translate}}</ion-label>
+            <ion-radio value="work"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="navigate-outline" slot="start"></ion-icon>
+            <ion-label>{{'OTHER' | translate}}</ion-label>
+            <ion-radio value="other"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <br>
+
+        <!-- Boton -->
+         <!-- Agregar -->
+        <button class="btn" *ngIf="from ==='new'" (click)="addAddress()" expand="block">
+          {{'Add' | translate}}
+        </button>
+        <!-- Editar -->
+        <button class="btn" *ngIf="from ==='edit'" (click)="updateAddress()" expand="block">
+          {{'Update' | translate}}
+
+        </button>
+      </div>
+    </div>
   </div>
 </ion-content>

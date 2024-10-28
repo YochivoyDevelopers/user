@@ -1,3 +1,24 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+    height: 9vh;
+    height: 4rem;
+    transition: all 0.2s linear;
+    background-color: var(--blanco);
+    padding: 0px 3%;
+    border-radius: 0 0 0 30px;
+    background-color: rgb(255, 56, 76) !important;
+    box-shadow: none;
+}
+
+ion-title{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
 .mainContent{
     padding: 20px;
     ion-label{
@@ -42,7 +63,8 @@
 
         .card_div{
             width: 100%;
-            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            // box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
@@ -74,31 +96,22 @@
                   font-weight: 600;  
                 } 
                 .res_location{
-                    color: lightgray;
+                    color: rgb(61, 61, 61);
                     font-size: 14px;
+                    
                 }
             }
 
-            // .order_detail{
-            //     .head_gray{
-            //         color: lightgray;
-            //         font-size: 13px;
-            //         margin-top: 10px;
-            //     }
-            //     .small_lbl{
-            //         font-size: 12px;
-            //         font-weight: 600;
-            //     }
-            // }
-            
             .order_detail{
                 .head_gray{
-                    color: lightgray;
+                    color: rgb(43, 43, 43);
+                    font-weight: bold;
                     font-size: 13px;
                     margin-top: 10px;
                 }
                 .small_lbl{
-                    font-size: 12px;
+                    color: rgb(82, 82, 82);
+                    font-size: 10px;
                     font-weight: 600;
                 }
                 .border_bottom{
@@ -130,21 +143,78 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                color: lightgray;
+                color: rgb(61, 61, 61);
                 font-size: 14px;
-
-                // .rate_lbl{
-                //     background: #b2d9b2;
-                //     border: 1px solid #7bdb7b;
-                //     padding: 0px 7px;
-                //     color: green;
-                //     border-radius: 25px;
-                //     font-size: 12px;
-                //     font-weight: 600;
-                //     margin-left: 5px;
-                // }
+                .estatus{
+                    color: rgb(255, 56, 76);
+                }
             }
         }
     }
 
+}
+
+.btn {
+    color: var(--ion-color-primary);
+    padding: 13px;
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: rgba(255, 56, 76, 0);
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    border: solid 1px rgb(255, 56, 76);
+}
+
+.btn:active {
+    background-color: rgba(43, 37, 37, 0.301);
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+.btn:hover {
+    background-color: rgba(148, 134, 135, 0.075);
+    transform: scale(1.02); 
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .mainContent{
+
+        .haveData{
+            .card_div{
+                box-shadow: rgba(173, 173, 173, 0.123) 0px 10px 20px, rgba(173, 173, 173, 0.123) 0px 6px 6px;
+                .resto_detail{
+                    .res_location{
+                        color: rgb(202, 202, 202);
+                        font-size: 14px;
+                    }
+                }
+    
+                .order_detail{
+                    .head_gray{
+                        color: rgb(255, 255, 255);
+                    }
+                    .small_lbl{
+                        color: rgb(180, 180, 180);
+                    }
+                }
+                .status_detail{
+                    color: rgb(255, 255, 255);
+                    .estatus{
+                        color: rgb(255, 56, 76);
+                    }
+                }
+            }
+        }
+    
+    }
+
+    .btn {
+        color: rgb(255, 56, 76);;
+    }
 }

@@ -1,55 +1,82 @@
 <ion-content class="ion-padding">
-  <div class="login-logo">
-    <img src="assets/icon.png" class="logo_icon" alt="foodies">
-    <p class="login-name">{{'Login' | translate}}</p>
-    <p class="subTitle">{{'Enter your login detail to' | translate}} <br>
-      {{'access your account' | translate}}</p>
-  </div>
 
-  <form #loginForm="ngForm" novalidate>
-    <ion-list lines="none">
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
-          #email="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          {{'Email is required' | translate}}
-        </p>
-      </ion-text>
 
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.password" name="password" [placeholder]="('password' | translate) || '&nbsp;'"
-          type="password" #password="ngModel" required>
-        </ion-input>
-      </ion-item>
+  <!-- Nuevo -->
 
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
-          {{'Password is required' | translate}}
-        </p>
-      </ion-text>
-    </ion-list>
+  <!-- Contenido -->
+  <div class="ion-padding">
 
-    <ion-row class="ion-no-margin ion-no-padding">
-      <ion-col class="ion-no-margin ion-no-padding">
-        <p class="frgTag" (click)="resetPass()">{{'Forgot Password?' | translate}}</p>
-        <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
-          <span *ngIf="!isLogin"> {{'Log In' | translate}}</span>
-          <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    <!-- Logo -->
+    <div class="login-logo">
+      <img src="assets/icon.png" class="logo-icon" alt="foodies">
+      <p class="login-name">{{'Login' | translate}}</p>
+      <p class="login-subTitle">{{'Enter your login detail to' | translate}} <br>
+        {{'access your account' | translate}}</p>
+    </div>
 
-  </form>
-  <p class="createAcc" (click)="register()">{{'Dont have an account?' | translate}}
-    <span class="registerTag">{{'Sign up' | translate}}</span>
-  </p>
-  <div class="btns">
-    <!--<img src="assets/imgs/en.png" (click)="changeLng('en')"
-      [ngClass]="getClassName() == 'en' ? 'flagActive':'flagDeactive'" alt="">
-    <img src="assets/imgs/spanish.png" (click)="changeLng('spanish')"
-      [ngClass]="getClassName() == 'spanish' ? 'flagActive':'flagDeactive'" alt="">-->
+    <!-- Formulario -->
+    <form #loginForm="ngForm" class="form" novalidate>
+
+      <!-- para poner los componentes del formulario (ion-list)-->
+      <div class="list-form" > 
+
+        <!-- Para poner un componente del formulario (ion-item) "email"-->
+        <div class="item-form">
+          <!-- Input email -->
+          <input 
+            [(ngModel)]="login.email" 
+            type="email" 
+            [placeholder]="('Email' | translate) || '&nbsp;'" 
+            name="email"
+            #email="ngModel" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            id="email"
+            required
+          >
+        </div>
+        <!-- Mensaje de error email -->
+          <div class="error-msg">
+            <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+              {{'Email is required' | translate}}
+            </p>
+          </div>
+      
+
+        <!-- Para poner un componente del formulario (ion-item) "password" -->
+        <div class="item-form">
+          <!-- Input Password -->
+          <input 
+            [(ngModel)]="login.password" 
+            name="password" 
+            id="password"
+            [placeholder]="('password' | translate) || '&nbsp;'"
+            type="password" 
+            #password="ngModel" 
+            required
+          >
+          <!-- Mensaje de error email -->
+          <div class="error-msg">
+            <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+              {{'Password is required' | translate}}
+            </p>
+          </div>
+        </div>
+
+        <!-- Forgot Password? y Login-->
+        <div>
+          <p class="forgot-pwrd" (click)="resetPass()">{{'Forgot Password?' | translate}}</p>
+          <button class="loginbtn" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
+            <span *ngIf="!isLogin"> {{'Log In' | translate}}</span>
+            <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
+          </button>
+        </div>
+
+      </div>
+    </form>
+    <p class="createAcc" (click)="register()">{{'Dont have an account?' | translate}}
+      <span class="registerTag">{{'Sign up' | translate}}</span>
+    </p>
+
   </div>
 </ion-content>

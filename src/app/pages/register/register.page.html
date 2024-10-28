@@ -1,81 +1,132 @@
+<!-- Nuevo -->
+
+<!-- Contenido -->
 <ion-content class="ion-padding">
-  <div class="login-logo">
-    <img src="assets/icon.png" class="logo_icon" alt="foodies">
-    <p class="login-name">{{'Register' | translate}}</p>
-    <p class="subTitle">{{'Enter your login detail to' | translate}} <br>
-      {{'access your account' | translate}}</p>
+  <div class="ion-padding">
+    <div class="login-logo">
+      <img src="assets/icon.png" class="logo-icon" alt="foodies">
+      <p class="login-name">{{'Register' | translate}}</p>
+      <p class="login-subTitle">{{'Enter your login detail to' | translate}} <br>
+        {{'access your account' | translate}}</p>
+    </div>
+
+    <!-- Formulario -->
+    <form #loginForm="ngForm" class="form" novalidate>
+
+      <!-- para poner los componentes del formulario (ion-list)-->
+      <div class="list-form" >
+
+        <!-- Para poner un componente del formulario (ion-item) "nombre"-->
+        <div class="item-form">
+          <input 
+            [(ngModel)]="login.full_name" 
+            type="text" 
+            [placeholder]="('Full Name' | translate) || '&nbsp;'"
+            name="full_name" 
+            #full_name="ngModel" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            required
+          >
+        </div>
+        <!-- Mensaje de error nombre -->
+        <div class="error-msg">
+          <p [hidden]="full_name.valid || submitted == false" class="ion-padding-start">
+            {{'Name is required' | translate}}
+          </p>
+        </div>
+
+        <!-- Para poner un componente del formulario (ion-item) "numero"-->
+        <div class="item-form">
+          <input 
+            [(ngModel)]="login.phone" 
+            type="tel" 
+            [placeholder]="('Phone Number' | translate) || '&nbsp;'"
+            name="phone" 
+            #phone="ngModel" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            required
+          >
+        </div>
+        <!-- Mensaje de error numero -->
+        <div class="error-msg">
+          <p [hidden]="phone.valid || submitted == false" class="ion-padding-start">
+            {{'Phone is required' | translate}}
+          </p>
+        </div>
+
+
+        <!-- Para poner un componente del formulario (ion-item) "email"-->
+        <div class="item-form">
+          <input
+            [(ngModel)]="login.email" 
+            type="email" 
+            [placeholder]="('Email' | translate) || '&nbsp;'" 
+            name="email"
+            #email="ngModel" 
+            spellcheck="false" 
+            autocapitalize="off" 
+            required
+          >
+        </div>
+        <!-- Mensaje de error email -->
+        <div class="error-msg">
+          <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+            {{'Email is required' | translate}}
+          </p>
+        </div>
+
+        <!-- Para poner un componente del formulario (ion-item) "password"-->
+        <div class="item-form">
+          <input
+            [(ngModel)]="login.password" 
+            name="password" 
+            [placeholder]="('password' | translate) || '&nbsp;'"
+            type="password" 
+            #password="ngModel" 
+            required
+          >
+        </div>
+        <!-- Mensaje de error password -->
+        <div class="error-msg">
+          <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+            {{'Password is required' | translate}}
+          </p>
+        </div>
+
+        <!-- Para poner un componente del formulario (ion-item) "Confirmpassword"-->
+        <div class="item-form">
+          <input
+            [(ngModel)]="login.confirmPassword" 
+            name="cpassword"
+            [placeholder]="('Confirm Password' | translate) || '&nbsp;'" 
+            type="password" 
+            #cpassword="ngModel" 
+            required
+          >
+        </div>
+        <!-- Mensaje de error Confirmpassword -->
+        <div class="error-msg">
+          <p [hidden]="cpassword.valid || submitted == false" class="ion-padding-start">
+            {{'Confirm Password is required' | translate}}
+          </p>
+        </div>
+
+        <!-- Boton Registrarse-->
+        <br>
+        <div>
+          <button class="loginbtn" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
+            <span *ngIf="!isLogin"> {{'Sign up' | translate}}</span>
+            <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <p class="back-login" (click)="back()">{{'Already have an account' | translate}}
+      <span class="loginTag">{{'Login' | translate}}</span>
+    </p>
+
   </div>
-
-  <form #loginForm="ngForm" novalidate>
-    <ion-list lines="none">
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.full_name" type="text" [placeholder]="('Full Name' | translate) || '&nbsp;'"
-          name="full_name" #full_name="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="full_name.valid || submitted == false" class="ion-padding-start">
-          {{'Name is required' | translate}}
-        </p>
-      </ion-text>
-      
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.phone" type="text" [placeholder]="('Phone Number' | translate) || '&nbsp;'"
-          name="phone" #phone="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="phone.valid || submitted == false" class="ion-padding-start">
-          {{'Phone is required' | translate}}
-        </p>
-      </ion-text>
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
-          #email="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          {{'Email is required' | translate}}
-        </p>
-      </ion-text>
-
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.password" name="password" [placeholder]="('password' | translate) || '&nbsp;'"
-          type="password" #password="ngModel" required>
-        </ion-input>
-      </ion-item>
-
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
-          {{'Password is required' | translate}}
-        </p>
-
-      </ion-text>
-      <ion-item lines="none">
-        <ion-input [(ngModel)]="login.confirmPassword" name="cpassword"
-          [placeholder]="('Confirm Password' | translate) || '&nbsp;'" type="password" #cpassword="ngModel" required>
-        </ion-input>
-      </ion-item>
-
-      <ion-text color="danger">
-        <p [hidden]="cpassword.valid || submitted == false" class="ion-padding-start">
-          {{'Confirm Password is required' | translate}}
-        </p>
-      </ion-text>
-    </ion-list>
-
-    <ion-row class="ion-no-margin ion-no-padding">
-      <ion-col class="ion-no-margin ion-no-padding">
-        <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin">
-          <span *ngIf="!isLogin"> {{'Sign up' | translate}}</span>
-          <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-
-  </form>
-  <p class="createAcc" (click)="back()">{{'Already have an account' | translate}}
-    <span class="registerTag">{{'Login' | translate}}</span>
-  </p>
 </ion-content>

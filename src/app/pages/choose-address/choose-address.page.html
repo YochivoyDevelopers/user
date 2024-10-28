@@ -1,3 +1,5 @@
+<!-- Nuevo -->
+ <!-- Header -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -7,16 +9,22 @@
     <ion-title *ngIf="from ==='accont'">{{'Manage Address' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<!-- Contenido -->
 <ion-content>
   <div class="group">
     <div class="mainContent">
-      <ion-button (click)="addNew()" expand="block" fill="clear">
+      <button class="btn" (click)="addNew()" expand="block" fill="clear">
         <ion-icon slot="start" name="add"></ion-icon>
         {{'Add Address' | translate}}
-      </ion-button>
+      </button>
+
+      <!-- Por si no hay datos -->
       <div class="noData" *ngIf="!dummy?.length && !myaddress?.length"
-        [style.backgroundImage]="'url(assets/nothing.jpg)'">
+        [style.backgroundImage]="'url(assets/nothing.svg)'">
       </div>
+
+      <!-- Animacion de esperar los datos -->
       <div *ngFor="let item of dummy">
         <ion-list lines="none">
           <ion-item>
@@ -37,17 +45,20 @@
           </ion-item>
         </ion-list>
       </div>
-      <ion-list *ngIf="from ==='cart'">
-        <ion-radio-group [(ngModel)]="selectedAddress">
-          <ion-item *ngFor="let item of myaddress" class="list">
-            <ion-label class="title">{{item.title}} <br>
+
+      <!-- Si es cart -->
+       <div *ngIf="from ==='cart'" >
+        <ion-radio-group [(ngModel)]="selectedAddress" >
+          <ion-item style="background-color: rgba(240, 248, 255, 0)" *ngFor="let item of myaddress" class="list">
+            <ion-label class="title" >{{item.title | translate}} <br>
               <span class="name">{{item.house}} {{item.landmark}} {{item.address}}</span></ion-label>
-            <!-- <ion-label class="name"></ion-label> -->
             <ion-radio [value]="item.id" slot="start" mode="md"></ion-radio>
           </ion-item>
         </ion-radio-group>
-      </ion-list>
-      <div *ngIf="from ==='accont'">
+       </div>
+
+       <!-- Si es account -->
+       <div *ngIf="from ==='accont'">
         <div class="list" *ngFor="let item of myaddress" scrollX="true">
           <ion-label class="title">{{item.title}}</ion-label>
           <ion-label class="name">{{item.house}} {{item.landmark}} {{item.address}}
@@ -58,9 +69,11 @@
       </div>
     </div>
   </div>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="selectedAddress" (click)="selectAddress()">
     <ion-fab-button>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>
