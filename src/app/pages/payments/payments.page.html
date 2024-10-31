@@ -1,37 +1,35 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button mode="md"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{'Payments' | translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="header">
-    <ion-label class="title">{{'Payment Options' | translate}}</ion-label>
+<header>
+  <div class="header_div">
+    <div class="back_button">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
+    </div>
+    <div class="header_lbl">{{ 'Payments' | translate }}</div>
   </div>
-  <ion-item (click)="openStripe()">
-    <ion-thumbnail slot="start">
-      <img src="assets/stripe.png" />
-    </ion-thumbnail>
-    <ion-label>{{'Pay with' | translate}} Stripe</ion-label>
-    <ion-icon mode="ios" name="arrow-forward-outline" slot="end"></ion-icon>
-  </ion-item>
+</header>
 
-  <ion-item (click)="payWithPaypal()">
-    <ion-thumbnail slot="start">
-      <img src="assets/paypal.png" />
-    </ion-thumbnail>
-    <ion-label>{{'Pay with' | translate}} Paypal</ion-label>
-    <ion-icon mode="ios" name="arrow-forward-outline" slot="end"></ion-icon>
-  </ion-item>
+<main class="content">
+  <div class="header">
+    <label class="title">{{ 'Payment Options' | translate }}</label>
+  </div>
   
-  <ion-item (click)="placeOrder()">
-    <ion-thumbnail slot="start">
-      <img src="assets/cod.png" />
-    </ion-thumbnail>
-    <ion-label>{{'Cash on Delivery' | translate}}</ion-label>
-    <ion-icon mode="ios" name="arrow-forward-outline" slot="end"></ion-icon>
-  </ion-item>
-</ion-content>
+  <div class="item" (click)="openStripe()">
+    <div class="label">{{ 'Pay with' | translate }} Stripe</div>
+    <div class="thumbnail">
+      <img src="assets/stripe.png" alt="Stripe" />
+    </div>
+  </div>
+
+  <div class="item" (click)="payWithPaypal()">
+    <div class="label">{{ 'Pay with' | translate }} Paypal</div>
+    <div class="thumbnail">
+      <img src="assets/paypal.png" alt="Paypal" />
+    </div>
+  </div>
+
+  <div class="item" (click)="placeOrder()">
+    <div class="label">{{ 'Cash on Delivery' | translate }}</div>
+    <div class="thumbnail">
+      <img src="assets/cod.png" alt="Cash on Delivery" />
+    </div>
+  </div>
+</main>

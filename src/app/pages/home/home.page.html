@@ -1,8 +1,7 @@
-<ion-header mode="ios">
-  <!-- <ion-toolbar [hidden]="headerHidden" class="animated fadeInDown" *ngIf="haveLocation"> -->
+  <ion-header>
   <ion-toolbar>
     <div class="deliveryAddress">
-      <img src="assets/pin.png" alt="" class="pin" (click)="changeLocation()">
+      <img src="assets/pingray.png" alt="" class="pin" (click)="changeLocation()">
       <p class="address" (click)="changeLocation()"> {{cityName | slice:0:25}}</p>
       <div class="userPhoto" [style.backgroundImage]="'url('+ profile +')'" *ngIf="profile"></div>
       <div class="userPhoto" [style.backgroundImage]="'url(assets/user.png)'" *ngIf="!profile"></div>
@@ -22,6 +21,8 @@
   </ion-item>
 </ion-header>
 
+
+<!-- Contenido -->
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <div class="main_content_div">
     <ion-slides [options]="slideOpts" *ngIf="banners?.length && allRest?.length">
@@ -30,7 +31,7 @@
         </div>
       </ion-slide>
     </ion-slides>
-    <div class="noData" *ngIf="!dummy?.length && !allRest?.length" [style.backgroundImage]="'url(assets/nothing.jpg)'">
+    <div class="noData" *ngIf="!dummy?.length && !allRest?.length" [style.backgroundImage]="'url(assets/nothing.svg)'">
 
     </div>
     <p style="font-weight: bold;text-align: center;" *ngIf="!dummy?.length && !allRest?.length">
@@ -59,26 +60,41 @@
     <div class="card_div">
       <ion-row [className]="item && item.status =='close' ? 'cardClosed ion-no-padding':'card ion-no-padding'"
         *ngFor="let item of allRest">
-        <ion-col size="4">
+        <div class="cardcontent" >
+          <!-- Imagen -->
           <div class="image_div" (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'"></div>
-        </ion-col>
-        <ion-col size="6">
-          <div class="desc_div" (click)="openMenu(item)">
-            <ion-label class="heading_lbl">{{item.name}}</ion-label>
-            <ion-label class="small_lbl">{{getCusine(item.cusine)}}</ion-label>
-            <ion-label class="small_lbl">{{getCurrency()}}{{item.dishPrice}} {{'per person' | translate}} |
-              {{item.time}}
-              {{'min' | translate}}</ion-label>
 
+            <!-- Info -->
+            <div class="info">
+              <ion-col class="box1">
+                <div class="desc_div" (click)="openMenu(item)">
+                  <ion-label class="heading_lbl">{{item.name}}</ion-label>
+                  <ion-label class="small_lbl">{{getCusine(item.cusine)}}</ion-label>
+                  <ion-label class="small_lbl">{{getCurrency()}}{{item.dishPrice}} {{'per person' | translate}} |
+                    {{item.time}}
+                    {{'min' | translate}}</ion-label>
+
+                </div>
+              </ion-col>
+
+              <!-- Rating? -->
+              <ion-col class="box2">
+                <div class="ratting">
+                  <ion-label class="rateNumber">{{item.ratting}}</ion-label>
+                </div>
+                <p class="closed" *ngIf="item && item.status =='close'">{{'Closed' | translate}}</p>
+              </ion-col>
+            </div>
           </div>
-        </ion-col>
-        <ion-col size="2">
-          <div class="ratting">
-            <ion-label class="rateNumber">{{item.ratting}}</ion-label>
-          </div>
-          <p class="closed" *ngIf="item && item.status =='close'">{{'Closed' | translate}}</p>
-        </ion-col>
+        <div style="height: 15px; width: 100px;"></div>
+        
       </ion-row>
     </div>
   </div>
 </ion-content>
+
+
+
+
+
+

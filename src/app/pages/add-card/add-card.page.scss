@@ -1,3 +1,49 @@
+/* Header */
+.header_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgb(255, 56, 76);
+    border-bottom-left-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back_button {
+    display: flex;
+    align-items: center;
+
+    .back-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+    } 
+}
+
+.header_lbl { 
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+    text-align: center;
+}
+
+// #card-element {
+//     padding: 10px;
+//     border: 1px solid lightgray;
+//     border-radius: 5px;
+//     background-color: #ffffff;
+//     margin-top: 5px;
+//   }
+  
+//   #card-element:focus {
+//     border-color: rgb(255, 56, 76);
+//     box-shadow: 0 0 5px rgba(255, 56, 76, 0.5);
+//   }
+
 .div_content{
     width: 100%;
     padding-left: 25px;
@@ -12,34 +58,32 @@
     .div_card{
         margin-top: 20px;
         width: 100%;
-        border: 1px solid gray;
-        border-radius: 5px;
+        // border: 1px solid rgb(255, 56, 76);
+        background-color: rgba(255, 56, 76, 0.05);;
+        border-radius: 14px;
         padding: 20px;
 
+        &:focus {
+            outline: none;
+            background-color: rgba(255, 56, 76, 0.1); 
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); 
+        }
+
         .input_all{
-            font-size: 10px;
+            font-size: 13px;
             border: 1px solid lightgray;
             border-radius: 5px;
             --padding-start: 10px;
         }
         .input_date{
-            font-size: 10px;
+            font-size: 13px;
             padding: 0px !important;
             color: black;
-            // padding-bottom: 3px !important;        
+                  
         }
-        // /deep/ .native-input.sc-ion-input-md{
-        //     padding-bottom: 2px !important;
-        //     padding-left: 0px !important;
-        //     padding-top: 0px !important
-        // }
-        // /deep/ .native-input.sc-ion-input-ios{
-        //     padding-bottom: 2px !important;
-        //     padding-left: 0px !important;
-        //     padding-top: 0px !important
-        // }
+      
         .card_number{
-            font-size: 10px;
+            font-size: 13px;
             color: gray;  
         }
         .img_visa{
@@ -55,12 +99,23 @@
         border-radius: 5px;
         width: 135px;
         text-align: center;
-        font-size: 10px;
+        font-size: 13px;
     }
 
     .btn_addcard{
-        margin-top: 30px;
-        --box-shadow: none !important;
+        width: 100%;
+        padding: 10px 32px; 
+        border: none;
+        border-radius: 14px; 
+        background-color: rgb(255, 56, 76);
+        color: white; 
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        justify-content: center;
+        text-align: center;
+        margin: 25px auto; 
     }
 }
 .title{
@@ -76,4 +131,61 @@
     font-size: 1rem;
     color: black;
     font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* Header */
+    .header_div {
+        box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+    }
+
+    .back_button .back-btn {
+        color: #e0e0e0;
+    }
+
+    .header_lbl {
+        color: #e0e0e0;
+    }
+
+    .div_content {
+        .lbl_card {
+            color: lightgray;
+        }
+
+        .div_card {
+            background-color: rgba(255, 56, 76, 0.1);
+
+            &:focus {
+                box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.2);
+            }
+
+            .input_all {
+                border: 1px solid #555;
+                background-color: #33333300;
+                color: #e0e0e0;
+            }
+
+            .input_date {
+                color: #e0e0e0;
+            }
+
+            .card_number {
+                color: lightgray;
+            }
+        }
+
+        .in_cvc {
+            border: 1px solid #555;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+    }
+
+    .title {
+        color: #ff8a80; 
+    }
+
+    .sub {
+        color: #e0e0e0;
+    }
 }

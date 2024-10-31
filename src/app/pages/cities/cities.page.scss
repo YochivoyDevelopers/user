@@ -1,3 +1,24 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+    height: 9vh;
+    height: 4rem;
+    transition: all 0.2s linear;
+    background-color: var(--blanco);
+    padding: 0px 3%;
+    border-radius: 0 0 0 30px;
+    background-color: rgb(255, 56, 76) !important;
+    box-shadow: none;
+}
+
+ion-title{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
 .noData{
     border-radius: 10px;
     background-position: center;
@@ -6,24 +27,3 @@
     width: 100%;
     height: 250px;
 }
-.btns{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0px;
-    margin-top: 70px;
-    .flagActive{
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        border: 2px solid var(--ion-color-primary);
-        margin: 0px 10px;
-    }
-    .flagDeactive{
-        height: 45px;
-        width: 45px;
-        margin: 0px 10px;
-        opacity: .5;
-    }
-}   

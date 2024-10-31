@@ -534,4 +534,9 @@ export class StripePaymentsPage implements OnInit {
   getCurrency() {
     return this.util.getCurrecySymbol();
   }
+
+
+goBack() {
+  this.router.navigate(['/payments']); // O usa: this.location.back(); si has importado Location
+  }
 }

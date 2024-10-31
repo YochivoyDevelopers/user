@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { ApisService } from 'src/app/services/apis.service';
 import { NavController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 import Swal from 'sweetalert2';
 
 declare var Stripe: any;
@@ -26,18 +27,38 @@ export class AddCardPage implements OnInit {
     private util: UtilService,
     private api: ApisService,
     private navCtrl: NavController,
+    private router: Router
   ) {}
 
   ngOnInit() {
+  // const style = {
+  //     base: {
+  //       color: '#333',             // Color del texto
+  //       fontFamily: 'Arial, sans-serif',
+  //       fontSize: '16px',
+  //       '::placeholder': {
+  //         color: '#aab7c4',         // Color del placeholder
+  //       },
+  //     },
+  //     invalid: {
+  //       color: '#fa755a',           // Color de texto en caso de error
+  //     },
+  //   };
+
     this.stripe = Stripe('pk_test_51PxRvdIIXWFer6qKLrUTEsblKHp46OGTMocj4Qt2AcuFRaAl7FU9Nn6iElE2SI1O15UBMmMPLPEAHyiBltJS1Hdc00GbpkXpvj');
     this.elements = this.stripe.elements();
     this.card = this.elements.create('card', {
       hidePostalCode: true,
+      // style: style,   
     });
     this.card.mount('#card-element');
     this.loadCards(); // Cargar tarjetas guardadas
+
+    
   }
 
+
+  
   loadCards() {
     const stripeCustomerId = localStorage.getItem('stripeCustomerId'); // Usar stripeCustomerId
     if (!stripeCustomerId) {
@@ -156,5 +177,9 @@ export class AddCardPage implements OnInit {
       this.util.showErrorAlert(error?.error?.error?.message || this.util.translate('Something went wrong'));
       this.util.hide();
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/stripe-payments']); // O usa: this.location.back(); si has importado Location
   }
 }

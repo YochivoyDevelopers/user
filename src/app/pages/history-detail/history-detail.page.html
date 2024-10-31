@@ -26,7 +26,7 @@
     <ion-label class="header_lbl">{{'Order Summary' | translate}}</ion-label>
     <ion-label class="res_location" *ngIf="status !='rejected'" style="font-size: 15px;"
       >{{'This order with' | translate}} {{restName}} {{'was' | translate}}
-      <strong>{{status | translate}}</strong>
+      <strong style="color: rgb(255, 56, 76);">{{status | translate}}</strong>
     </ion-label>
     <ion-label class="res_location" *ngIf="status =='rejected'"
     >{{'This order with' | translate}} {{restName}} {{'was' | translate}}
@@ -152,14 +152,17 @@
         <ion-icon name="star" color="light" slot="start"></ion-icon>
         {{'Rate Order' | translate}}
       </ion-button>
-      <ion-button
+      <button
         *ngIf="status === 'created' || status === 'ongoing' || status === 'accepted'"
         (click)="changeStatus()"
         size="small"
-        class="reject"
+        class="btn"
       >
         {{'Cancel Order' | translate}}
-      </ion-button>
+      </button>
+
+
+
     </div>
   </ion-toolbar>
 </ion-footer>

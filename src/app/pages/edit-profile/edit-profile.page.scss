@@ -1,18 +1,10 @@
-.header_div{
-    display: flex;
-    flex-direction: column;
-    .head_lbl{
-        margin-left: 16px;
-        font-size: 18px;
-        font-weight: 600;
-    }
-}
+
 
 .main_content_div{
     width: 100%;
 
     .back_image{
-        height: 200px;
+        height: 100px;
         width: 100%;
         background-position: center;
         background-size: cover;
@@ -23,8 +15,8 @@
     .lower_div{
         padding: 20px;
         .white_div{
-            height: 70px;
-            width: 70px;
+            height: 100px;
+            width: 100px;
             border-radius: 50%;
             background-position: center;
             background-size: cover;
@@ -45,8 +37,86 @@
     }
 }
 
-.sub_btn{
-    --background: var(--ion-color-primary);
-    --border-radius: 5px;
-    font-weight: 600;
+.sub_btn {
+    color: white ;
+    padding: 13px;
+    border: none;
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--ion-color-primary);
+    width: 85%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+
+.item-form{
+    border-radius: 5px !important;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.item-form input{
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+.item-form label{
+    display: none;
+}
+
+input{
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.label{
+    font-size: 13px;
+    color: darkslategray;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .sub_btn {
+        background-color: rgb(255, 56, 76);
+    }
+
+
+    .item-form input::placeholder {
+        color: #bbbbbb; 
+    }
+
+    .item-form input:focus {
+        background-color: #333333;
+        color: #ffffff; 
+        outline: none;
+    }
+
+    input{
+        border: none;
+        padding: 10px;
+        border-bottom: 1px solid black;
+    }
+
+    .label{
+        font-size: 13px;
+        color: darkslategray;
+    }
+
+    .item-form input {
+        background-color: rgba(0, 0, 0, 0);;
+        color: #ffffff;
+        border-bottom: 1px solid #ffffff; 
+    }
+
+    .label{
+        font-size: 13px;
+        color: lightgray;
+    }
+
 }

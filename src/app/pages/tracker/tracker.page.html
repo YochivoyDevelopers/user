@@ -16,19 +16,24 @@
       <ion-label class="head_lbl">{{'Order on the Way' | translate}}</ion-label>
 
       <div class="driver_detail_div">
-        <div class="back_image" [style.backgroundImage]="'url('+dCover+')'"></div>
-        <div style="padding-left: 20px;">
+        <!-- <div class="back_image" [style.backgroundImage]="'url('+dCover+')'"></div> -->
+        <div >
           <ion-label class="boy_name">{{dName}}</ion-label>
           <ion-label class="address">{{restAddress}}</ion-label>
-          <ion-button (click)="callDriver()" size="small" fill="outline">
+          <button class="callBtn" (click)="callDriver()" >
             {{'Call' | translate}}
-          </ion-button>
+          </button>
         </div>
       </div>
+      <br>
+      <div class="line"></div>
 
       <ion-label class="order_detail">{{totalOrders.length}} {{'Items to deliver' | translate}}<span
-          style="color: var(--ion-color-primary);position: absolute;right: 20px;">{{grandTotal}}{{getCurrency()}}</span>
+          style="color: rgb(255, 56, 76); ;position: absolute;right: 20px;">{{grandTotal}}{{getCurrency()}}</span>
       </ion-label>
+      <br>
+      <div class="line"></div>
+
       <ion-label class="order_detail">{{'Order Status' | translate}}<span class="order_status">{{status}}</span>
       </ion-label>
 

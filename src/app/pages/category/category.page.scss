@@ -81,6 +81,7 @@ ion-toolbar {
             }
             .address{
                 font-size: 1rem;
+                color: black;
                 margin: 0px;
             }
         } 
@@ -93,18 +94,21 @@ ion-toolbar {
             font-size: 1.2rem;
             font-weight: bold;
             color: black;
-            padding-left: 10px;
+            padding-left: 12px;
         }
         .card_div{
             .card{
                 display: flex;
+                
                 .mainCat{
+                    border: solid 1px lightgray;
+                    border-radius: 10px;
                     width: 100%;
                     flex-direction: row;
                     padding:5px 10px;
                     display: flex;
                     .image_div{
-                        border-radius: 10px;
+                        border-radius: 20px;
                         background-position: center;
                         background-repeat: no-repeat;
                         background-size: cover;
@@ -124,8 +128,8 @@ ion-toolbar {
                             font-size: 10px;
                         }
                         .small_lbl{
-                            font-size: 8px;
-                            color: lightgray;
+                            font-size: 10px;
+                            color: black;
                             display: block;
                             text-align: left;
                         }
@@ -163,4 +167,47 @@ ion-toolbar {
 }
 
 
-
+@media (prefers-color-scheme: dark) {
+    .mainContent{
+        .foodsContent{
+            background: rgb(18, 18, 18);
+            .restname{
+                color: lightgray;
+            }
+            .cusine{
+                font-size: 1rem;
+                color: lightgray;
+                padding-left: 10px;
+            }
+            .ratting{
+                font-size: 1rem;
+                padding-left: 10px;
+            }
+            .cateTitle{
+                color: lightgray;
+            }
+            .card_div{
+                .card{
+                    .mainCat{
+                        border: solid 1px rgb(95, 95, 95);
+                        .desc_div{
+                            .small_lbl{
+                                color: lightgray;
+                            }
+                        }
+                        .cartBtn{
+                            background: rgb(18, 18, 18);
+                            .btns{
+                                border: 1px solid rgb(255, 56, 76);
+                                color: rgb(255, 56, 76);
+                            }
+                        }
+                        .cartBtn2{
+                            background: rgb(18, 18, 18);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
