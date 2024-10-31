@@ -1,48 +1,157 @@
-.btn_right{
-    position: relative;
-    z-index: 999999;
-}
-.img_menu{
-    width: 17px;
-    position: absolute;
-    right: 20px;
-}
-.div_content{
+/* Contenedor  */
+.container {
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    max-width: 500px; 
+    margin: 0 auto;   
+    padding: 0 15px;  
+    box-sizing: border-box;
+}
 
-    .div_inner{
+/* Header */
+.header_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgb(255, 56, 76);
+    border-bottom-left-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    .back_button, .add_button {
+        display: flex;
+        align-items: center;
+
+        .back-btn, .add-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+    }
+
+    .header_lbl {
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        flex: 1;
+        text-align: center;
+        margin-right: 40px;
+    }
+}
+
+/* Estilo del contenido */
+.content {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: calc(100vh - 70px);
+
+    /* Contenedor de tarjetas */
+    .radio-group {
         width: 100%;
-        margin-top: 15px;
-        padding-bottom: 15px;
+        box-sizing: border-box;
+    }
 
-        .r{
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+    .div_inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: rgba(255, 56, 76, 0.1);
+        border-radius: 5px;
+        margin: 10px auto; 
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+
+        .radio-btn {
+            margin-right: 10px;
         }
-        .lbl_number{
-            display: block;
-            font-size: 17px;
+
+        .lbl_number {
+            font-size: 1rem;
             color: gray;
-            margin-left: 10px;
+            margin-right: 10px;
         }
-        .img_visa{
-            float: right;
-            position: absolute;
-            top: 50%;
-            display: block;
-            font-size: 17px;
-            color: gray;
-            margin-left: 10px;
-            transform: translateY(-50%);
-            height: 50px !important;
-            width: 50px !important;
+
+        .thumbnail {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+
+            .img_visa {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff3c4c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 15px;
+        }
+    }
+
+    .btn_addcard {
+        margin-top: 30px;
+        padding: 10px;
+        background-color: rgb(255, 56, 76);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background-color: rgba(255, 56, 76, 0.9);
         }
     }
 }
-.btn_addcard{
-    margin-top: 30px;
-    --box-shadow: none !important;
-}
+
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+    /* Header */
+    .header_div {
+      background-color: rgba(255, 56, 76, 0.9); 
+    }
+  
+    .header_lbl,
+    .back-btn,
+    .add-btn ion-icon {
+      color: #fff; 
+    }
+  
+    /* Estilo de contenido */
+    .content {
+      .div_inner {
+        background-color: rgba(255, 56, 76, 0.15); 
+        box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); 
+      }
+  
+      .lbl_number,
+      .delete-btn ion-icon,
+      .radio-btn {
+        color: #e0e0e0; 
+      }
+  
+      .btn_addcard {
+        background-color: rgba(255, 56, 76, 0.8); 
+        color: #fff;
+        box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); 
+      }
+
+      .ion-text-center{
+        color: #fff;
+      }
+    }
+  }

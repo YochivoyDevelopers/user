@@ -1,15 +1,17 @@
 .main_content_div{
     width: 100%;
 
+    //modo claro
     .back_image{
-        height: 300px;
+        height: 30vh;
+        // height: 300px;
         width: 100%;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
         position: relative;
 
-        ion-button{
+        button{
             position: absolute;
             bottom: 20px;
             right: 20px;
@@ -35,14 +37,15 @@
 
     .content_div{
         padding: 20px;
-        ion-label {
+        p {
             display: block;
         }
-        .usernane{
+        .username{
             text-align: center;
             font-weight: 600;
             font-size: 18px;
-            // margin-top: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px; 
         }
         .location{
             margin-top: 10px;
@@ -59,27 +62,39 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-
-            ion-label {
-                color: white;
+            gap: 10px;
+            p {
+                color: ion-text-color;
                 font-size: .8rem;
-                border: 1px solid lightgray;
+                border: 1px solid rgba(255, 255, 255, 0);;
+                background-color: rgba(255, 137, 137, 0.123);
                 border-radius: 5px;
                 padding: 5px;
                 text-align: center;
+
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        
+                // Efecto al tocar el elemento en móviles
+                &:active {
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más intensa al tocar */
+                }
             }
-            ion-button{
-                border: 1px solid lightgray;
+            button{
+                border: 1px solid;
                 border-radius: 5px;
                 color: white;
             }
+
+            
         }
+        
         .flex_div1{
             margin-top: 20px;
             display: flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
+            
 
             .gray_div{
                 height: 60px;
@@ -104,7 +119,7 @@
             margin-top: 20px;
             border-bottom: 1px solid lightgray;
             // padding-bottom: 10px;
-            ion-label {
+            p {
                 margin-right: 30px;
                 color: gray;
                 padding-bottom: 10px;
@@ -134,6 +149,109 @@
             --border-radius: 5px;
             margin-top: 20px;
             font-weight: 600;
+        }
+
+        .btnLogout{
+            width: 100%; 
+            padding: 10px 16px; 
+            border: none;
+            border-radius: 14px; 
+            background-color: rgb(255, 56, 76);
+            color: white; 
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .review-card {
+            margin-top: 10px;
+            background-color: transparent; 
+            border: 1px solid rgba(0, 0, 0, 0.15); 
+            border-radius: 12px; 
+            padding: 12px;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          }
+        
+          
+          
+          .review-card:active {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+          }
+          
+          .review-title {
+            font-weight: bold;
+            color: #333; 
+            margin: 0;
+          }
+          
+          .review-description {
+            color: #666;
+            margin: 0;
+          }
+          
+          .review-image {
+            width: 50px; 
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 10px;
+            float: left;
+          }
+          
+          
+
+        @media (prefers-color-scheme: dark) {
+            .flex_div p {
+                
+                box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2); 
+
+                // Efecto al tocar
+                &:active {
+                    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.3); 
+                }
+            }
+
+            .review-card {
+                margin-top: 10px;
+                background-color: transparent; 
+                border: 1px solid rgba(255, 255, 255, 0.2); 
+                border-radius: 12px; 
+                padding: 12px;
+                color: #f5f5f5;
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); 
+                margin-bottom: 10px;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+              }
+    
+             
+              .review-card:active {
+                box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); 
+              }
+              
+              .review-title {
+                font-weight: bold;
+                color: #ffffff; 
+                margin: 0;
+              }
+              
+              .review-description {
+                color: #cccccc; 
+                margin: 0;
+              }
+              
+              .review-image {
+                width: 50px; 
+                height: 50px;
+                border-radius: 8px;
+                margin-right: 10px;
+                float: left;
+              }
+              
         }
     }
 }

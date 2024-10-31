@@ -1,11 +1,12 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button mode="md"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Calificar</ion-title>
-  </ion-toolbar>
-</ion-header>
+<header>
+  <div class="header_div">
+    <div class="back_button">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
+    </div>
+    <div class="header_lbl">Calificar</div>
+    <div class="empty_space"></div> <!-- Espacio vacío para centrar -->
+  </div>
+</header>
 
 <ion-content>
   <p class="title"> Calificar Comida </p>
@@ -19,16 +20,26 @@
   <p class="title"> Calificar a Repartidor</p>
   <div class="driver">
     <ion-item lines="none">
-      <ion-avatar slot="start">
+      <!-- <ion-avatar slot="start" style="background: transparent;">
+        <ion-img [src]="image" onError="this.src='assets/imgs/paper.png'"></ion-img>
+      </ion-avatar> -->
+      <div class="custom-avatar">
         <img [src]="image" onError="this.src='assets/imgs/paper.png'" />
-      </ion-avatar>
+    </div>
       <ion-label>{{name}}</ion-label>
     </ion-item>
     <rating [(ngModel)]="driver" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
       starIconName="star" nullable="false" (ngModelChange)="onRatingChange($event)"></rating>
     <ion-textarea rows="5" [(ngModel)]="driverNotes" placeholder="Comentarios"></ion-textarea>
   </div>
-  <ion-button (click)="submit()" expand="block" shape="round">
+  <!-- <ion-button (click)="submit()" expand="block" shape="round">
     Enviar
-  </ion-button>
+  </ion-button> -->
+
+  
+  <div class="button-container"> <!-- Contenedor para el botón -->
+    <button class="btn" (click)="submit()">
+      Enviar
+    </button>
+  </div>
 </ion-content>

@@ -5,6 +5,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { NavController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { orderBy, uniqBy } from 'lodash';
+import { Router, NavigationExtras } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-rate',
   templateUrl: './rate.page.html',
@@ -22,7 +24,9 @@ export class RatePage implements OnInit {
     private api: ApisService,
     private util: UtilService,
     private adb: AngularFirestore,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router,
+    private location: Location
   ) {
     const data = this.util.gerOrder();
     console.log(data);
@@ -89,4 +93,9 @@ export class RatePage implements OnInit {
   onRatingChange(event) {
     console.log(event);
   }
+
+  goBack() {
+    this.location.back(); 
+  }
+  
 }

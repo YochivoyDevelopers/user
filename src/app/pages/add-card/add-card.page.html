@@ -1,11 +1,11 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button mode="md"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{'Add New Card' | translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<header>
+  <div class="header_div">
+    <div class="back_button">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
+    </div>
+    <div class="header_lbl">{{ 'Add New Card' | translate }}</div>
+  </div>
+</header>
 
 <ion-content>
   <div class="div_content">
@@ -44,7 +44,7 @@
 
       <!-- Nombre -->
       <ion-row style="margin-top : 20px;">
-        <ion-col size="6">
+        <ion-col size="12">
           <ion-input type="text" [placeholder]="('Card Owner Placeholder' | translate )" [(ngModel)]="cname" class="input_all"></ion-input>
           <ion-label class="card_number">{{'Card Holder Name' | translate}}</ion-label>
         </ion-col>
@@ -63,7 +63,9 @@
     <!-- <ion-label class="lbl_card">CVC</ion-label>
     <ion-input type="text" maxlength="3" [(ngModel)]="cvc" class="in_cvc"></ion-input> -->
 
-    <ion-button expand="full" color="primary" class="btn_addcard" (click)="addcard()">{{'ADD CARD' | translate}}
-    </ion-button>
+    <!-- <ion-button expand="full" class="btn_addcard" (click)="addcard()">{{'ADD CARD' | translate}}
+    </ion-button> -->
+
+    <button class="btn_addcard" (click)="addcard()">{{'ADD CARD' | translate}}</button>
   </div>
 </ion-content>

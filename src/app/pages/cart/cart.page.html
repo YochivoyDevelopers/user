@@ -1,17 +1,18 @@
-<ion-header>
-  <ion-toolbar mode="ios">
-
-  </ion-toolbar>
-</ion-header>
+<header>
+  <nav>
+      <ion-title>{{'Carrito' | translate}}</ion-title>
+  </nav>
+</header>
 <ion-content>
   <div class="mainContent">
     <div class="noData" *ngIf="!cart?.length">
-      <img src="assets/runing.gif" alt="" class="noDataImg">
+      <img src="assets/running.png" alt="" class="noDataImg">
       <ion-label>{{'Your Cart is Empty' | translate}}</ion-label>
       <ion-label>{{'Please add your favourite food' | translate}} </ion-label>
-      <ion-button (click)="getCart()" expand="block" fill="outline">
+      <br>
+      <button class="btn" (click)="getCart()" expand="block" fill="outline">
         {{'Browse your favourite restaurants' | translate}}
-      </ion-button>
+      </button>
     </div>
     <div *ngIf="cart?.length">
       <ion-row style="padding-bottom: 10px; border-bottom: 1px solid lightgray;">
@@ -129,7 +130,7 @@
   </div>
 </ion-content>
 <ion-footer *ngIf="cart?.length">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="danger">
     <ion-label color="light">{{totalItem}} {{'ITEM' | translate}}</ion-label>
     <ion-label color="light">{{getCurrency()}}{{grandTotal}} {{'plus taxes' | translate}}</ion-label>
     <ion-button (click)="checkout()" slot="end" fill="clear" color="light">

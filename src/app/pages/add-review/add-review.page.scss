@@ -1,135 +1,288 @@
-.main_content_div{
-    width : 100%;
-    // padding: 20px;
-    padding-top: 20px;
-    .head_lbl{
+/* Header */
+.header_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgb(255, 56, 76);
+    border-bottom-left-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back_button {
+    display: flex;
+    align-items: center;
+
+    .back-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+    } 
+}
+
+.header_lbl { 
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+    text-align: center;
+}
+
+/* Main content styles */
+.main_content_div {
+    width: 100%;
+    padding-top: 10px; /* Ajustado para reducir la separación con el header */
+
+    .main_head_lbl {
         font-weight: 600;
         font-size: 18px;
+        text-align: left;
         padding-left: 20px;
+        color: #333;
     }
-    .flex_div{
+
+    .flex_div {
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
         margin-top: 10px;
-        width: 100%;
-        align-items: center;
         padding: 0px 20px;
-        .first_div{
+
+        .first_div {
             display: flex;
             justify-content: space-between;
             width: 70%;
 
-            .rate_div{
+            .rate_div {
                 border: 1px solid lightgray;
-                color: lightgray;
                 border-radius: 25px;
-                padding: 3px 10px;
+                padding: 5px 8px; 
+                margin-right: 5px; 
                 display: flex;
-                flex-direction: row;
-                ion-icon{
+                align-items: center;
+                justify-content: center;
+
+                ion-icon {
                     font-size: 15px;
                 }
 
-                span{
+                span {
                     font-size: 18px;
                     font-weight: 600;
                 }
-               
             }
 
-            .rate1{
-                background: #ed5a74;
-                color: white;
-                border: 1px solid #ed5a74;
-            }
-            .rate2{
-                background: #f7c007;
-                color: white;
-                border: 1px solid #f7c007;
-            }
-            .rate3{
-                background: #7bdb7b;
-                color: white;
-                border: 1px solid #7bdb7b;
-            }
-            .rate4{
-                background: #13ad13;
-                color: white;
-                border: 1px solid #13ad13;
-            }
-            .rate5{
-                background: #085c08;
-                color: white;
-                border: 1px solid #085c08;
-            }
+            /* Color changes based on rate */
+            .rate1 { background: #ed5a74; color: white; border: 1px solid #ed5a74; }
+            .rate2 { background: #f7c007; color: white; border: 1px solid #f7c007; }
+            .rate3 { background: #7bdb7b; color: white; border: 1px solid #7bdb7b; }
+            .rate4 { background: #13ad13; color: white; border: 1px solid #13ad13; }
+            .rate5 { background: #085c08; color: white; border: 1px solid #085c08; }
         }
 
-        .second_div{
-            .rate1{
+        .second_div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30%;
+            margin-left: 10px;
+        
+            div {
+                font-size: 16px;
+                font-weight: bold;
+                padding: 3px 8px;
+                border-radius: 10px;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        
+            .rate1 {
+                background-color: rgba(237, 90, 116, 0.1); 
+                border: 1px solid #ed5a74;
                 color: #ed5a74;
             }
-            .rate2{
-                color: #f7c007
+            
+            .rate2 {
+                background-color: rgba(247, 192, 7, 0.1); 
+                border: 1px solid #f7c007;
+                color: #f7c007;
             }
-            .rate3{
+        
+            .rate3 {
+                background-color: rgba(123, 219, 123, 0.1); 
+                border: 1px solid #7bdb7b;
                 color: #7bdb7b;
             }
-            .rate4{
+        
+            .rate4 {
+                background-color: rgba(19, 173, 19, 0.1); 
+                border: 1px solid #13ad13;
                 color: #13ad13;
             }
-            .rate5{
+        
+            .rate5 {
+                background-color: rgba(8, 92, 8, 0.1); 
+                border: 1px solid #085c08;
                 color: #085c08;
             }
         }
+        
     }
-    .line_div{
+
+    .line_div {
         width: 100%;
         height: 3px;
         background: lightgray;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0;
     }
 
-    .lower_div{
+    .lower_div {
         padding: 20px;
-
-        .head_lbl2{
+    
+        .head_lbl2 {
             font-weight: 600;
             font-size: 18px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
 
-        .gray_div{
+	.gray_div {
             margin-top: 10px;
             height: 70px;
             width: 70px;
             border-radius: 5px;
             border: 1px solid lightgray;
-            background: #f3f3f3;
+            background: rgba(255, 56, 76, 0.05);
             position: relative;
 
-            .camera{
+            .camera {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%, -50%);
                 font-size: 20px;
             }
         }
-
-        ion-textarea{
-            border-bottom: 1px solid lightgray;
+    
+        ion-textarea {
+            width: 100%;
+            background-color: rgba(255, 56, 76, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease;
+    
+            &::placeholder {
+                color: rgba(255, 56, 76, 0.6); 
+            }
+    
+            &:focus {
+                outline: none;
+                background-color: rgba(255, 56, 76, 0.1); 
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); 
+            }
         }
-
-        .small_gray{
+    
+        .small_gray {
             font-size: 12px;
-            color: gray;
+            color: rgb(255, 56, 76);
             margin-top: 10px;
         }
     }
 }
-.sub_btn{
-    --background: var(--ion-color-primary);
-    --border-radius: 5px;
-    font-weight: 600;
+
+.sub_btn {
+    width: auto; 
+    max-width: 350px; 
+    padding: 10px 32px; 
+    border: none;
+    border-radius: 14px; 
+    background-color: rgb(255, 56, 76);
+    color: white; 
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    text-align: center;
+    margin: 25px auto; 
+}
+
+/* Estilos para el modo oscuro */
+@media (prefers-color-scheme: dark) {
+    .header_div {
+        background-color: rgba(255, 56, 76, 0.9); 
+        box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+    }
+
+    .header_lbl {
+        color: #fff; 
+    }
+
+    .main_head_lbl {
+        color: #fff; 
+    }
+
+    .main_content_div {
+        background-color: #121212; 
+        
+        .main_head_lbl {
+            color: #fff; 
+        }
+
+        .flex_div {
+            .rate_div {
+                border: 1px solid rgba(255, 255, 255, 0.5); 
+                color: #fff; 
+            }
+        }
+
+        .line_div {
+            background: rgba(255, 255, 255, 0.1); 
+        }
+
+        .lower_div {
+            .head_lbl2 {
+                color: #fff; 
+            }
+
+            .gray_div {
+                background: rgba(255, 56, 76, 0.1); 
+                border: 1px solid rgba(255, 255, 255, 0.3); 
+                
+                .camera {
+                    color: #fff; 
+                }
+            }
+
+            ion-textarea {
+                background-color: rgba(255, 56, 76, 0.05); 
+                color: #fff; /* Texto blanco */
+                
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.6); 
+                }
+            }
+
+            .small_gray {
+                color: rgba(255, 56, 76, 0.8); 
+            }
+        }
+    }
+
+    .sub_btn {
+        background-color: rgb(255, 56, 76);
+        color: white;
+        margin: 15px auto; /* Aumenta el margen para que esté más arriba */
+        
+        &:hover {
+            background-color: rgb(255, 56, 76, 0.8); /* Ligero cambio en el hover */
+        }
+    }
 }

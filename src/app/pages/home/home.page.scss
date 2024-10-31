@@ -42,19 +42,28 @@ ion-toolbar:last-child {
 }
 .deliveryAddress{
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 20px 10px 0px 10px;
+    width: 100%;
+    height: 9vh;
+    transition: all 0.2s linear;
+    padding: 0px 3%;
+    border-radius: 0 0 30px 30px;
+    background-color: rgb(255, 56, 76) !important;
+    box-shadow: none;
     .pin{
-        width: 25px;
-        height: 25px;
+        width: 35px;
+        height: 35px;
     }
     .address{
         font-size: 1rem;
         margin: 0px;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
     }
     .userPhoto{
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
         background-position: center;
         background-repeat: no-repeat;
@@ -65,7 +74,6 @@ ion-toolbar:last-child {
     display: flex;
     flex-direction: row;
     align-items: center;
-    // justify-content: space-between;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
@@ -99,10 +107,10 @@ ion-toolbar:last-child {
         padding: 5px 20px;
         margin-right: 10px;
         white-space: nowrap;
-        color: lightgray;
+        color: rgb(41, 41, 41);
         font-size: 12px;
         font-weight: bold;
-        border: 1px solid lightgray;
+        border: 1px solid rgb(41, 41, 41);
         border-radius: 5px;
     }
     .selected{
@@ -136,11 +144,7 @@ ion-toolbar:last-child {
         text-align: left;
         color: var(--ion-color-primary);
     }
-    .small_lbl{
-        font-size: 12px;
-        color: lightgray;
-        ////font-family: open-regular;
-    }
+
 }
 .main_content_div{
     padding: 16px;
@@ -177,11 +181,7 @@ ion-toolbar:last-child {
             text-align: left;
             color: var(--ion-color-primary);
         }
-        .small_lbl{
-            font-size: 12px;
-            color: lightgray;
-            //font-family: open-regular;
-        }
+    
     }
 
     .slider_div{
@@ -228,16 +228,13 @@ ion-toolbar:last-child {
                     font-size: 12px;
                     //font-family: open-regular;                
                 }
-                .small_lbl{
-                    font-size: 12px;
-                    color: lightgray;
-                    //font-family: open-regular;
-                }
+               
             }
         }
     }
 
     .card_div{
+        
         .heading{
             display: flex;
             flex-direction: row;
@@ -253,11 +250,7 @@ ion-toolbar:last-child {
                 text-align: left;
                 color: var(--ion-color-primary);
             }
-            .small_lbl{
-                font-size: 12px;
-                color: lightgray;
-                //font-family: open-regular;
-            }
+            
         }
         .card{
             display: flex;
@@ -280,7 +273,7 @@ ion-toolbar:last-child {
                 }
                 .small_lbl{
                     font-size: 0.8rem;
-                    color: lightgray;
+                    color: rgb(0, 0, 0);
                     display: block;
                     text-align: left;
                 }
@@ -290,6 +283,7 @@ ion-toolbar:last-child {
                 background: green;
                 padding: 2px 5px;
                 text-align: center;
+                border-radius: 15px;
                 .rateNumber{
                     color: white;
                     font-size: 0.8rem;
@@ -317,12 +311,7 @@ ion-toolbar:last-child {
                     display: block;
                     text-align: left;
                 }
-                .small_lbl{
-                    font-size: 0.8rem;
-                    color: lightgray;
-                    display: block;
-                    text-align: left;
-                }
+ 
                 
             }
             .ratting{
@@ -336,6 +325,7 @@ ion-toolbar:last-child {
             }
             .closed{
                 position: absolute;
+                // border: solid 2px lightgray;
                 bottom: 0px;
                 right: 0px;
                 color: var(--ion-color-primary);
@@ -347,3 +337,71 @@ ion-toolbar:last-child {
         }
     }
 }
+
+.cardcontent{
+    // background-color: red; 
+    border: solid 1px lightgray;
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+}
+
+.info{
+    display: flex;
+}
+
+.box1 {
+    flex: 0 0 70%;
+}
+  
+.box2{
+    flex: 0 0 30%;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .main_content_div{
+        .card_div{  
+            .card{
+                .desc_div{
+                    .small_lbl{
+                        font-size: 0.8rem;
+                        color: lightgray;
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    .chips_div{
+        .chip{
+            color: lightgray;
+            border: 1px solid lightgray;
+        }
+        .selected{
+            color: white;
+            border: 1px solid lightgray;
+        }
+    }
+    .cardcontent{
+        box-shadow: rgba(173, 173, 173, 0.123) 0px 10px 20px, rgba(173, 173, 173, 0.123) 0px 6px 6px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -100,21 +100,21 @@ export class EditProfilePage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Choose from',
       buttons: [{
-        text: 'Camera',
+        text: this.util.translate('Camera'),
         icon: 'camera',
         handler: () => {
           console.log('Delete clicked');
           this.opemCamera('camera');
         }
       }, {
-        text: 'Gallery',
+        text: this.util.translate('Gallery'),
         icon: 'image',
         handler: () => {
           console.log('Share clicked');
           this.opemCamera('gallery');
         }
       }, {
-        text: 'Cancel',
+        text: this.util.translate('Cancel'),
         icon: 'close',
         role: 'cancel',
         handler: () => {

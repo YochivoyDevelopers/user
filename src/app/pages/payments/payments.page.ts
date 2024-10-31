@@ -543,4 +543,8 @@ export class PaymentsPage implements OnInit {
   openStripe() {
     this.router.navigate(['stripe-payments']);
   }
+
+  goBack() {
+    this.router.navigateByUrl('/choose-address?from=cart');
+  }
 }

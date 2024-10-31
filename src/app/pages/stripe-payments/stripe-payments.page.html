@@ -1,40 +1,39 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button mode="md"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{'Pay with' | translate}} Stripe</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="onAdd()">
-        <ion-icon slot="end" name="add"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="div_content">
-    <div *ngIf="!cards?.length">
-      <p class="ion-text-center">{{'No Card Found Please Add Card' | translate}}</p>
+<header>
+  <div class="header_div">
+    <div class="back_button">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
     </div>
-    <ion-radio-group [(ngModel)]="card_token">
-      <ion-item class="div_inner" lines="none" *ngFor="let card of cards;let i = index">
-        <ion-thumbnail slot="end">
-          <img src="assets/visa.png" class="img_visa" />
-        </ion-thumbnail>
-        <ion-radio (ionSelect)="changeMethod(card.id)" [value]="card.id" slot="start"></ion-radio>
-        <ion-label>**** **** **** {{card.last4}} <br> Expiry {{card.exp_month}} / {{card.exp_year}}</ion-label>
-        
-        <!-- Botón de eliminar tarjeta -->
-        <ion-button color="danger" (click)="deleteCard(card.id)" slot="end">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-radio-group>
-    <ion-button expand="block" *ngIf="cards?.length" class="btn_addcard" (click)="payment()">{{'Payment' | translate}}
-      {{getCurrency()}}
-      {{grandTotal}}
-    </ion-button>
-
+    <div class="header_lbl">{{ 'Pay with' | translate }} Stripe</div>
+    <div class="add_button">
+      <button class="add-btn" (click)="onAdd()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </div>
   </div>
-</ion-content>
+</header>
+
+<div class="container">
+  <div class="content">
+    <div *ngIf="!cards?.length">
+      <p class="ion-text-center">{{ 'No Card Found Please Add Card' | translate }}</p>
+    </div>
+    <div class="radio-group">
+      <ion-radio-group [(ngModel)]="card_token"> <!-- Enlazamos el grupo al modelo -->
+        <div class="div_inner" *ngFor="let card of cards; let i = index">
+          <ion-radio [value]="card.id" class="radio-btn" (ionSelect)="changeMethod(card.id)"></ion-radio>
+          <div class="lbl_number">**** **** **** {{ card.last4 }} <br> Expiry {{ card.exp_month }} / {{ card.exp_year }}</div>
+          <div class="thumbnail">
+            <img src="assets/visa.png" class="img_visa" />
+          </div>
+          <button class="delete-btn" (click)="deleteCard(card.id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
+      </ion-radio-group>
+    </div>
+    <button class="btn_addcard" (click)="payment()">{{ 'Payment' | translate }}
+      {{ getCurrency() }}
+      {{ grandTotal }}
+    </button>
+  </div>
+</div>

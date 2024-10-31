@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import * as firebase from 'firebase';
 import { UtilService } from 'src/app/services/util.service';
+import { Router, NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-add-review',
   templateUrl: './add-review.page.html',
@@ -33,7 +34,9 @@ export class AddReviewPage implements OnInit {
     private actionSheetController: ActionSheetController,
     private camera: Camera,
     private util: UtilService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
+   
   ) { }
 
   ngOnInit() {
@@ -175,4 +178,9 @@ export class AddReviewPage implements OnInit {
       this.util.hide();
     });
   }
+
+  goBack() {
+    this.router.navigate(['/choose-restaurant']); // O usa: this.location.back(); si has importado Location
+  }
+  
 }

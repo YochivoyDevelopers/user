@@ -1,31 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <div class="header_div">
-      <ion-buttons slot="start">
-        <ion-back-button text="" mode="md"></ion-back-button>
-      </ion-buttons>
-      <ion-label class="head_lbl">{{'Select Restaurant' | translate}}</ion-label>
-
-      <ion-searchbar [placeholder]="('Search by restaurant' | translate) || '&nbsp;'" mode="ios"
-        (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="never"></ion-searchbar>
+<header>
+  <div class="header_div">
+    <div class="back_button">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
     </div>
-  </ion-toolbar>
-</ion-header>
+    <div class="head_lbl">{{ 'Select Restaurant' | translate }}</div>
 
-<ion-content>
+    <!-- Botón de búsqueda -->
+    <button class="search-btn" (click)="toggleSearchbar()">
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Barra de búsqueda desplegable -->
+  <div class="searchbar" [ngClass]="{'show': isSearchbarVisible}">
+    <input
+      type="text"
+      placeholder="{{ 'Search by restaurant' | translate }}"
+      (input)="onSearchChange($event)"
+      class="search_input"
+    />
+  </div>
+</header>
+
+<main>
   <div class="main_content_div">
-
     <div class="card_div" *ngFor="let item of restaurants" (click)="goToAddReview(item)">
       <div class="resto_detail">
-        <img [src]="item.cover" class="back_image" alt="">
-        <!-- <div class="back_image" [style.backgroundImage]="'url('+item.cover+')'"></div> -->
+        <img [src]="item.cover" class="back_image" alt="" />
         <div style="padding-left: 20px;">
-          <ion-label class="res_name">{{item.name}}</ion-label>
-          <ion-label class="res_location">{{item.address}}</ion-label>
+          <div class="res_name">{{ item.name }}</div>
+          <div class="res_location">{{ item.address }}</div>
         </div>
       </div>
       <div class="line_div"></div>
     </div>
-
   </div>
-</ion-content>
+</main>

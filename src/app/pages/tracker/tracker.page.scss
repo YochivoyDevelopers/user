@@ -42,7 +42,7 @@
                 font-weight: 600;
             }
             .address{
-                color: gray;
+                color: rgb(61, 61, 61);
                 width: 80%;
             }
             ion-button{
@@ -59,13 +59,50 @@
             margin-top: 20px;
         }
         .order_status{
-            background: var(--ion-color-primary);
+            background: rgba(255, 56, 76, 0);
             position: absolute;
             right: 20px;
-            color: white;
+            color: rgb(255, 56, 76);
             padding: 3px 8px;
+            border: solid 1px rgb(255, 56, 76);;
             border-radius: 3px;
             text-transform: uppercase;
         }
     }   
+}
+
+.callBtn{
+    color: rgb(255, 255, 255) ;
+    padding: 13px;
+    // border: solid 1px rgb(255, 56, 76);
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: rgb(255, 56, 76);
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    position: absolute;
+    right: -3px;
+    top: -5px;
+    font-weight: 600;
+}
+
+.line{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(177, 177, 177);
+}
+
+@media (prefers-color-scheme: dark) {
+    .main_content_div{
+        .lower_div{    
+            .driver_detail_div{
+                .address{
+                    color: rgb(199, 199, 199);
+                }
+            }
+        }   
+    }
 }

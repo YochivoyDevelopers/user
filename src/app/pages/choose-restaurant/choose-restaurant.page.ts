@@ -9,6 +9,7 @@ import { ApisService } from 'src/app/services/apis.service';
 export class ChooseRestaurantPage implements OnInit {
   restaurants: any = [];
   dummyRest: any = [];
+  isSearchbarVisible = false;
   constructor(
     private router: Router,
     private api: ApisService) {
@@ -62,9 +63,21 @@ export class ChooseRestaurantPage implements OnInit {
     });
 
   }
-  onSearchChange(event) {
+  onSearchChange(event: any) {
     this.resetChanges();
-    this.restaurants = this.filterItems(event.detail.value);
+    this.restaurants = this.filterItems(event.target.value);
   }
+  
+
+
+  goBack() {
+    this.router.navigate(['/tabs/tab4']); // O usa: this.location.back(); si has importado Location
+  }
+
+  toggleSearchbar() {
+    this.isSearchbarVisible = !this.isSearchbarVisible;
+  }
+
+  
 
 }

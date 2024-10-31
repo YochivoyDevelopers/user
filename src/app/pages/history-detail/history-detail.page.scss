@@ -135,10 +135,16 @@
         margin-bottom: 15px;
     }
     .red_lbl{
-        color: red;
+        color: green;
         text-align: center;
         margin-top: 20px;
         margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        border-radius: 1rem;
+    }
+    .red_lbl:hover{
+        background-color: rgba(133, 133, 133, 0.267);
     }
 }
 
@@ -170,4 +176,30 @@
         font-size: 14px;
         font-weight: 400;
     }
+}
+
+.btn {
+    color: rgb(236, 236, 236);
+    padding: 13px;
+    border-radius: 1rem;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    background-color:  rgb(255, 56, 76);
+}
+
+.btn:active {
+    background-color: rgb(192, 29, 45);
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+.btn:hover {
+    background-color: rgb(150, 23, 36);
+    transform: scale(1.02); 
 }
