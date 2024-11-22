@@ -8,6 +8,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-edit-profile',
@@ -33,6 +34,7 @@ export class EditProfilePage implements OnInit {
     private navCtrl: NavController,
     private actionSheetController: ActionSheetController,
     private camera: Camera,
+    private androidPermissions: AndroidPermissions,  // Agregado
   ) {
 
   }
@@ -60,8 +62,60 @@ export class EditProfilePage implements OnInit {
     });
   }
   ngOnInit() {
+    this.requestPermissions();  // Llama a la solicitud de permisos al iniciar
     this.getProfile();
   }
+
+// Método para solicitar permisos
+requestPermissions() {
+  this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA);
+      }
+    }
+  );
+
+  this.androidPermissions.checkPermission('android.permission.READ_MEDIA_IMAGES').then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission('android.permission.READ_MEDIA_IMAGES');
+      }
+    }
+  );
+
+  this.androidPermissions.checkPermission('android.permission.READ_MEDIA_VIDEO').then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission('android.permission.READ_MEDIA_VIDEO');
+      }
+    }
+  );
+
+  this.androidPermissions.checkPermission('android.permission.READ_MEDIA_VISUAL_USER_SELECTED').then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission('android.permission.READ_MEDIA_VISUAL_USER_SELECTED');
+      }
+    }
+  );
+
+  this.androidPermissions.checkPermission('android.permission.READ_EXTERNAL_STORAGE').then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission('android.permission.READ_EXTERNAL_STORAGE');
+      }
+    }
+  );
+
+  this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
+    result => {
+      if (!result.hasPermission) {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE);
+      }
+    }
+  );
+}
   update() {
     if (this.name === '' || this.phone === '' || !this.name || !this.phone ) {
       this.util.errorToast(this.util.translate('All Fields are required'));
@@ -104,7 +158,8 @@ export class EditProfilePage implements OnInit {
         icon: 'camera',
         handler: () => {
           console.log('Delete clicked');
-          this.opemCamera('camera');
+          // this.opemCamera('camera');
+          this.openCamera();
         }
       }, {
         text: this.util.translate('Gallery'),
@@ -159,5 +214,36 @@ export class EditProfilePage implements OnInit {
       this.util.hide();
     });
   }
+
+  openCamera() {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => {
+        if (result.hasPermission) {
+          const options: CameraOptions = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,  
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE,
+            sourceType: this.camera.PictureSourceType.CAMERA, 
+            saveToPhotoAlbum: true 
+          };
+  
+          this.camera.getPicture(options).then((imageData) => {
+            this.profilePic = 'data:image/jpeg;base64,' + imageData;
+          }, (err) => {
+            console.log("Error al capturar la foto: ", err);
+            this.util.errorToast(this.util.translate('Error capturing image.'));
+          });
+        } else {
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA);
+        }
+      },
+      error => {
+        console.log('Error checking permissions: ', error);
+        this.util.errorToast(this.util.translate('Permission check failed.'));
+      }
+    );
+  }
+  
 
 }
