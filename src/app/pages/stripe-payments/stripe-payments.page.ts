@@ -502,7 +502,7 @@ export class StripePaymentsPage implements OnInit {
             })
             .catch(error => {
               this.util.hide();
-              this.util.errorToast(this.util.translate("Something went wrong"));
+              // this.util.errorToast(this.util.translate("Something went wrong"));
               this.router.navigate(["tabs"]);
             });
         } else {
@@ -521,6 +521,7 @@ export class StripePaymentsPage implements OnInit {
 
   ionViewWillEnter() {
     this.getProfile();
+    this.loadCards();
   }
 
   onAdd() {
