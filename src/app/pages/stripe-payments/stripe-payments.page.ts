@@ -181,6 +181,7 @@ export class StripePaymentsPage implements OnInit {
 
   async ngOnInit() {
     this.loadCards();
+    this.calculate();
     const foods = await JSON.parse(localStorage.getItem("foods"));
     let recheck = await foods.filter(x => x.quantiy > 0);
     console.log(recheck);
@@ -218,7 +219,7 @@ export class StripePaymentsPage implements OnInit {
         cart !== "undefined"
       ) {
         this.cart = JSON.parse(localStorage.getItem("userCart"));
-        this.calculate();
+        // this.calculate();
       } else {
         this.cart = [];
       }
@@ -350,6 +351,10 @@ export class StripePaymentsPage implements OnInit {
    * Registra el pago con Stripe
    */
   payment() {
+    if (!this.card_token) {
+      this.util.showErrorAlert(this.util.translate('Please select a card.'));
+      return;
+    }
     console.log("place order");
   
     swal
@@ -531,6 +536,7 @@ export class StripePaymentsPage implements OnInit {
   ionViewWillEnter() {
     this.getProfile();
     this.loadCards();
+    this.calculate();
   }
 
   onAdd() {

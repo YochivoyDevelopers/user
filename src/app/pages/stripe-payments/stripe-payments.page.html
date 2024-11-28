@@ -31,7 +31,8 @@
         </div>
       </ion-radio-group>
     </div>
-    <button class="btn_addcard" (click)="payment()">{{ 'Payment' | translate }}
+    <button class="btn_addcard" (click)="payment()" *ngIf="card_token">
+      {{ 'Payment' | translate }}
       {{ getCurrency() }}
       {{ grandTotal }}
     </button>
