@@ -108,7 +108,18 @@
             <ion-label class="headerTitle">{{'Taxes & Charges' | translate}}</ion-label>
             <ion-label class="price">{{getCurrency()}} {{serviceTax}}</ion-label>
           </div>
-          <div class="singleRow">
+          <div >
+            <!-- <ion-label class="headerTitle">{{'Select Address' | translate}}</ion-label> -->
+             <br>
+            <ion-label style="color: rgb(255, 56, 76);"  (click)="goToAddress()" slot="end" fill="clear" >
+              {{'Select Address' | translate}}
+            </ion-label>
+          </div>
+          <div class="singleRow" *ngIf="selectedAddress">
+            <ion-label class="headerTitle">{{'Delivery Address' | translate}}</ion-label>
+            <ion-label class="price">{{selectedAddress.address}}</ion-label>
+          </div>
+          <div class="singleRow" *ngIf="selectedAddress">
             <ion-label class="headerTitle">{{'Delivery Charges' | translate}}</ion-label>
             <ion-label class="price">{{getCurrency()}} {{deliveryCharge}}</ion-label>
           </div>
@@ -129,7 +140,7 @@
     </div>
   </div>
 </ion-content>
-<ion-footer *ngIf="cart?.length">
+<ion-footer *ngIf="cart?.length && selectedAddress">
   <ion-toolbar color="danger">
     <ion-label color="light">{{totalItem}} {{'ITEM' | translate}}</ion-label>
     <ion-label color="light">{{getCurrency()}}{{grandTotal}} {{'plus taxes' | translate}}</ion-label>
