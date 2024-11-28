@@ -81,7 +81,9 @@ export class ChooseAddressPage implements OnInit {
       // this.util.showToast('Address changed', 'success', 'bottom');
       // this.navCtrl.back();
 
-      this.router.navigate(['payments']);
+      // this.router.navigate(['payments']);
+      // this.router.navigate(['tabs/tab3']);
+      this.router.navigate(['tabs/tab3'], { queryParams: { from: 'cart' } });
     }
   }
 

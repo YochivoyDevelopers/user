@@ -545,6 +545,7 @@ export class PaymentsPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/choose-address?from=cart');
+    // this.router.navigateByUrl('/choose-address?from=cart');
+    this.router.navigateByUrl('tabs/tab3');
   }
 }

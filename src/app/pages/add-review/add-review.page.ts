@@ -76,6 +76,13 @@ export class AddReviewPage implements OnInit {
       totalRatting = this.rate;
     }
     console.log(totalRatting);
+  
+    // fecha y hora actuales
+    const now = new Date();
+    const createdAt = now.toLocaleDateString('es-ES'); // Fecha legible
+    const createdTime = now.toLocaleTimeString('es-ES'); // Hora legible
+  
+    
     const review = {
       id: localStorage.getItem('uid'),
       descriptions: this.descriptions,
@@ -83,10 +90,15 @@ export class AddReviewPage implements OnInit {
       cover: this.coverImage,
       restId: this.id,
       vid: this.id,
-      uid: localStorage.getItem('uid')
+      uid: localStorage.getItem('uid'),
+      createdAt, // Fecha
+      createdTime // Hora
     };
+  
     this.util.show();
     console.log('review', review);
+  
+   
     this.api.addReview(review).then((data) => {
       const restParam = {
         ratting: this.ratting + 1,
@@ -94,6 +106,7 @@ export class AddReviewPage implements OnInit {
         uid: this.id
       };
       console.log('restParam', restParam);
+  
       this.api.updateVenue(restParam).then((newUpdate) => {
         console.log(newUpdate);
         this.util.hide();
@@ -115,6 +128,7 @@ export class AddReviewPage implements OnInit {
       console.log(error);
     });
   }
+  
 
   async openCamera() {
     const actionSheet = await this.actionSheetController.create({
