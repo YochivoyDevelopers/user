@@ -528,9 +528,56 @@ export class StripePaymentsPage implements OnInit {
   }
   
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.getProfile();
     this.loadCards();
+    // this.calculate();
+    // this.grandTotal = localStorage.getItem('grandTotalT');
+    const foods = await JSON.parse(localStorage.getItem("foods"));
+    let recheck = await foods.filter(x => x.quantiy > 0);
+    console.log(recheck);
+    const add = JSON.parse(localStorage.getItem("deliveryAddress"));
+    this.vid = localStorage.getItem("vid");
+    this.api
+      .getVenueUser(this.vid)
+      .then(
+        data => {
+          console.log("venue", data);
+          if (data && data.fcm_token) {
+            this.venueFCM = data.fcm_token;
+          }
+        },
+        error => {
+          this.util.errorToast(this.util.translate("Something went wrong"));
+          this.router.navigate(["tabs"]);
+        }
+      )
+      .catch(error => {
+        this.util.errorToast(this.util.translate("Something went wrong"));
+        this.router.navigate(["tabs"]);
+        console.log(error);
+      });
+    if (add && add.address) {
+      this.deliveryAddress = add;
+    }
+    this.coupon = JSON.parse(localStorage.getItem("coupon"));
+    const cart = localStorage.getItem("userCart");
+    try {
+      if (
+        cart &&
+        cart !== "null" &&
+        cart !== undefined &&
+        cart !== "undefined"
+      ) {
+        this.cart = JSON.parse(localStorage.getItem("userCart"));
+        this.calculate();
+      } else {
+        this.cart = [];
+      }
+    } catch (error) {
+      console.log(error);
+      this.cart = [];
+    }
   }
 
   onAdd() {
