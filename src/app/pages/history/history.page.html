@@ -47,7 +47,7 @@
       <div class="card_div"  *ngFor="let item of myOrders" (click)="goToHistoryDetail(item.id)">
 
         <!-- Si esta abierto la orden -->
-        <div *ngIf="item.status =='ongoing'||item.status =='accepted'||item.status =='created'">
+        <div *ngIf="item.status =='ongoing'||item.status =='accepted'||item.status =='created'||item.status =='torestaurant'||item.status =='todestiny'">
           <div class="resto_detail">
             <div class="back_image" [style.backgroundImage]="'url('+item.vid.cover+')'"></div>
             <div style="margin-left: 20px;">
@@ -104,7 +104,7 @@
             </div>
           </div>
           <div class="status_detail"
-            *ngIf="item.status =='created' || item.status =='ongoing' || item.status === 'accepted'">
+            *ngIf="item.status =='created' || item.status =='ongoing' || item.status === 'accepted' ||item.status =='torestaurant'||item.status =='todestiny'">
             <div class="deliver_div">
               {{'Your Order is' | translate}} <strong class="estatus">{{item.status | translate}}</strong>
             </div>
