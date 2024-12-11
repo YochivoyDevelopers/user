@@ -386,7 +386,7 @@ export class CartPage implements OnInit {
   
       console.log('total item', this.totalItem);
       console.log('=====>', this.totalPrice);
-      const tax = (parseFloat(this.totalPrice) * 21) / 100;
+      const tax = (parseFloat(this.totalPrice) * 15) / 100;
       this.serviceTax = tax.toFixed(2);
       console.log('tax->', this.serviceTax);
       // this.deliveryCharge = 25;
@@ -441,8 +441,12 @@ export class CartPage implements OnInit {
           console.error('No se tienen todas las coordenadas necesarias para calcular la distancia.');
         }
       }
-      this.grandTotal = parseFloat(this.totalPrice)+ parseFloat(this.deliveryCharge); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+      this.grandTotal = parseFloat(this.totalPrice)+ parseFloat(this.deliveryCharge) + parseFloat(this.serviceTax); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
       localStorage.setItem('grandTotalT', this.grandTotal.toString());
+      localStorage.setItem('serviceTaxT', this.serviceTax.toString());
+      console.log('taxlocalstorage', localStorage.getItem('serviceTaxT'));
+      
+
     this.grandTotal = this.grandTotal.toFixed(2);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === '%') {
@@ -455,9 +459,9 @@ export class CartPage implements OnInit {
         this.dicount = totalPrice.toFixed(2);
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
         // this.totalPrice = totalPrice;
-        console.log('------------>>>>', this.totalPrice);
+        console.log('totalprice------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
+        const tax = (parseFloat(this.totalPrice) * 15) / 100;
         this.serviceTax = tax.toFixed(2);
         console.log('tax->', this.serviceTax);
         // this.deliveryCharge = 25;
@@ -467,7 +471,7 @@ export class CartPage implements OnInit {
         console.log('deliii', this.deliveryCharge);
         }
         console.log('deliverytotal', this.deliveryCharge);
-        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.deliveryCharge); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.deliveryCharge) + parseFloat(this.serviceTax); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
         console.log('curreny');
@@ -475,9 +479,9 @@ export class CartPage implements OnInit {
         console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = this.coupon.discout;
         this.totalPrice = totalPrice;
-        console.log('------------>>>>', this.totalPrice);
+        console.log('a------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
+        const tax = (parseFloat(this.totalPrice) * 15) / 100;
         this.serviceTax = tax.toFixed(2);
         console.log('tax->', this.serviceTax);
         // this.deliveryCharge = 25;
@@ -487,8 +491,10 @@ export class CartPage implements OnInit {
         console.log('deliii', this.deliveryCharge);
         }
         console.log('deliverytotal', this.deliveryCharge);
-        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.deliveryCharge); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.deliveryCharge) + parseFloat(this.serviceTax); // + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        console.log('aaaaaaaa', this.grandTotal);
         this.grandTotal = this.grandTotal.toFixed(2);
+
       }
     } else {
       console.log('not satisfied');

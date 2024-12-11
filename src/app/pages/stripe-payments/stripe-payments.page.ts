@@ -270,19 +270,23 @@ export class StripePaymentsPage implements OnInit {
     // new
 
     const totalFinal = localStorage.getItem('grandTotalT');
+    const taxFinal = localStorage.getItem('serviceTaxT');
     // console.log('chacalito', storedCharge);
 
     console.log("total item", this.totalItem);
     console.log("=====>", this.totalPrice);
-    const tax = (parseFloat(this.totalPrice) * 21) / 100;
-    this.serviceTax = tax.toFixed(2);
-    console.log("tax->", this.serviceTax);
+    // const tax = (parseFloat(this.totalPrice) * 21) / 100;
+    // this.serviceTax = tax.toFixed(2);
+    // console.log("tax->", this.serviceTax);
     // this.deliveryCharge = 25;
     // this.grandTotal =
     //   parseFloat(this.totalPrice) +
     //   parseFloat(this.serviceTax) +
     //   parseFloat(this.deliveryCharge);
+    this.serviceTax = taxFinal;
+    console.log('tax-1', this.serviceTax);
     this.grandTotal = totalFinal;
+    console.log('Grandtotal---', this.grandTotal);
     this.grandTotal = this.grandTotal.toFixed(2);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === "%") {
@@ -299,14 +303,16 @@ export class StripePaymentsPage implements OnInit {
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
         console.log("------------>>>>", this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2);
-        console.log("tax->", this.serviceTax);
+        // const tax = (parseFloat(this.totalPrice) * 21) / 100;
+        // this.serviceTax = tax.toFixed(2);
+        // console.log("tax->", this.serviceTax);
         // this.deliveryCharge = 25;
         // this.grandTotal =
         //   parseFloat(this.totalPrice) +
         //   parseFloat(this.serviceTax) +
         //   parseFloat(this.deliveryCharge);
+        this.serviceTax = taxFinal;
+        console.log('tax-2', this.serviceTax);
         this.grandTotal = totalFinal;
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
@@ -317,14 +323,16 @@ export class StripePaymentsPage implements OnInit {
         this.totalPrice = totalPrice;
         console.log("------------>>>>", this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2);
-        console.log("Service Tax: ", this.serviceTax);
+        // const tax = (parseFloat(this.totalPrice) * 21) / 100;
+        // this.serviceTax = tax.toFixed(2);
+        // console.log("Service Tax: ", this.serviceTax);
         // this.deliveryCharge = 25;
         // this.grandTotal =
         //   parseFloat(this.totalPrice) +
         //   parseFloat(this.serviceTax) +
         //   parseFloat(this.deliveryCharge);
+        this.serviceTax = taxFinal;
+        console.log('tax-3', this.serviceTax);
         this.grandTotal = totalFinal;
         this.grandTotal = this.grandTotal.toFixed(2);
       }
